@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -147,7 +147,9 @@ describe('Main Integration Tests', () => {
   describe('main.tsx entry point', () => {
     it('renders App component wrapped in StrictMode', async () => {
       // Import main.tsx to execute the entry point code
-      await import('./main');
+      await act(async () => {
+        await import('./main');
+      });
 
       // Wait for the app to render
       await waitFor(() => {
