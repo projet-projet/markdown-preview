@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
-import { useState } from 'react';
 
 import type { LayoutProps } from '../../types/markdown';
+import { DarkModeToggle } from '../DarkModeToggle';
 import { GitHubButton } from '../GitHubButton';
 
 /**
@@ -9,27 +9,11 @@ import { GitHubButton } from '../GitHubButton';
  * Supports split view (desktop) and toggle view (mobile).
  */
 export function Layout({ children, mode, onToggleView }: LayoutProps) {
-  const [isDark, setIsDark] = useState(() =>
-    document.documentElement.classList.contains('dark'),
-  );
-
   const isEditorOnly = mode === 'editor-only';
   const isPreviewOnly = mode === 'preview-only';
   const isSplit = mode === 'split';
 
   const toggleLabel = isEditorOnly ? 'Show Preview' : 'Show Editor';
-
-  const handleToggleDark = () => {
-    const newIsDark = !isDark;
-    setIsDark(newIsDark);
-    if (newIsDark) {
-      document.documentElement.classList.add('dark');
-      localStorage.theme = 'dark';
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.theme = 'light';
-    }
-  };
 
   // Convert children to array for selective rendering
   const childrenArray = Array.isArray(children) ? children : [children];
@@ -45,16 +29,7 @@ export function Layout({ children, mode, onToggleView }: LayoutProps) {
         </h1>
         <div className="flex items-center gap-2">
           <GitHubButton />
-          <button
-            type="button"
-            onClick={handleToggleDark}
-            aria-pressed={isDark ? 'true' : 'false'}
-            aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-            title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-            className="inline-flex h-9 w-9 items-center justify-center rounded bg-gray-200 text-gray-700 hover:bg-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
-          >
-            {isDark ? '🌙' : '☀️'}
-          </button>
+          <DarkModeToggle />
           <button
             type="button"
             onClick={onToggleView}
