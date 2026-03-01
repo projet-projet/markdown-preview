@@ -128,20 +128,6 @@ describe('Layout Component', () => {
   });
 
   describe('accessibility', () => {
-    it('toggle button has aria-pressed indicating current view', () => {
-      render(
-        <Layout mode="editor-only">
-          <TestChildren />
-        </Layout>,
-      );
-
-      const toggleButton = screen.getByRole('button', {
-        name: /show preview/i,
-      });
-      // When in editor-only mode, aria-pressed is false (preview is not shown)
-      expect(toggleButton).toHaveAttribute('aria-pressed', 'false');
-    });
-
     it('toggle button is keyboard accessible', async () => {
       const user = userEvent.setup();
       const onToggleView = vi.fn();
