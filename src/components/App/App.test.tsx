@@ -1,4 +1,4 @@
-import { act, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import App from '.';
@@ -34,9 +34,21 @@ describe('App component', () => {
     render(<App />);
 
     const editor = screen.getByRole('textbox', { name: /markdown editor/i });
+
+    // Clear default content first
+    fireEvent.change(editor, { target: { value: '' } });
     await user.type(editor, 'Hello');
 
     expect(editor).toHaveValue('Hello');
+  });
+
+  it('renders with default markdown content', () => {
+    render(<App />);
+
+    const editor = screen.getByRole('textbox', { name: /markdown editor/i });
+    expect(editor).toHaveValue(
+      '# Heading\n\n**bold** *italic* `code`\n\n- List item\n- Another item\n\n[link](url)\n\n> quote\n',
+    );
   });
 
   it('renders preview section', () => {

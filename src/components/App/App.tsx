@@ -7,8 +7,20 @@ import { Preview } from '../Preview';
 
 const MOBILE_BREAKPOINT = 768;
 
+const DEFAULT_MARKDOWN = `# Heading
+
+**bold** *italic* \`code\`
+
+- List item
+- Another item
+
+[link](url)
+
+> quote
+`;
+
 export default function App() {
-  const [markdown, setMarkdown] = useState('');
+  const [markdown, setMarkdown] = useState(DEFAULT_MARKDOWN);
   const [mode, setMode] = useState<LayoutMode>('split');
   const modeRef = useRef(mode);
 

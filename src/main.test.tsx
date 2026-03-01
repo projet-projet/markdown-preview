@@ -1,4 +1,10 @@
-import { act, render, screen, waitFor } from '@testing-library/react';
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import App from './components/App';
@@ -26,6 +32,9 @@ describe('Main Integration Tests', () => {
       const editor = screen.getByRole('textbox', { name: /markdown editor/i });
       expect(editor).toBeInTheDocument();
 
+      // Clear existing content first
+      fireEvent.change(editor, { target: { value: '' } });
+
       // Type in the editor
       await user.type(editor, 'Hello');
 
@@ -38,6 +47,9 @@ describe('Main Integration Tests', () => {
       render(<App />);
 
       const editor = screen.getByRole('textbox', { name: /markdown editor/i });
+
+      // Clear existing content first
+      fireEvent.change(editor, { target: { value: '' } });
 
       // Type initial content
       await user.type(editor, 'Initial');
@@ -54,12 +66,18 @@ describe('Main Integration Tests', () => {
 
       const editor = screen.getByRole('textbox', { name: /markdown editor/i });
 
+      // Clear existing content first
+      fireEvent.change(editor, { target: { value: '' } });
+
       // Type content
       await user.type(editor, 'Text');
       expect(editor).toHaveValue('Text');
 
       // Select all and delete
-      await user.keyboard('{Control>}a{Backspace}');
+      const textarea = editor as HTMLTextAreaElement;
+      textarea.setSelectionRange(0, textarea.value.length);
+      fireEvent.select(editor);
+      await user.keyboard('{Backspace}');
 
       // Content should be cleared
       expect(editor).toHaveValue('');
@@ -74,8 +92,8 @@ describe('Main Integration Tests', () => {
       const editor = screen.getByRole('textbox', { name: /markdown editor/i });
       const preview = screen.getByRole('region', { name: /markdown preview/i });
 
-      // Initially empty state
-      expect(preview).toHaveTextContent(/start typing/i);
+      // Clear existing content first
+      fireEvent.change(editor, { target: { value: '' } });
 
       // Type markdown
       await user.type(editor, '# Heading');
@@ -137,6 +155,11 @@ describe('Main Integration Tests', () => {
 
     it('empty editor shows empty preview state', () => {
       render(<App />);
+
+      const editor = screen.getByRole('textbox', { name: /markdown editor/i });
+
+      // Clear the default content
+      fireEvent.change(editor, { target: { value: '' } });
 
       const preview = screen.getByRole('region', { name: /markdown preview/i });
       expect(preview).toHaveTextContent(/start typing/i);
