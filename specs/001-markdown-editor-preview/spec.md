@@ -78,7 +78,7 @@ As a user, I want to see the editor and preview side-by-side so that I can write
 
 1. **Given** the application loads, **When** displayed on desktop, **Then** editor and preview are visible side-by-side with equal 50/50 width split taking full viewport height
 2. **Given** content exceeds viewport, **When** user scrolls editor or preview, **Then** each pane scrolls independently both vertically and horizontally
-3. **Given** narrow viewport (mobile), **When** application loads, **Then** user can toggle between editor-only and preview-only views via tab/switch control
+3. **Given** narrow viewport (mobile), **When** application loads, **Then** user can toggle between editor-only and preview-only views via toggle button control
 
 ---
 
@@ -105,6 +105,7 @@ As a user, I want helpful guidance when starting with an empty editor so that I 
 - What happens when user pastes HTML content? System should treat as plain text, not render as HTML.
 - How does layout behave on very narrow screens (mobile devices)? Layout should adapt responsively.
 - What happens if user types extremely fast? Preview should keep up without noticeable lag.
+- How does system handle malicious markdown containing script tags? System must sanitize output to prevent XSS attacks.
 
 ## Requirements _(mandatory)_
 
@@ -114,12 +115,13 @@ As a user, I want helpful guidance when starting with an empty editor so that I 
 - **FR-002**: System MUST render markdown content as HTML in a preview panel using an established open-source markdown parser library
 - **FR-003**: System MUST update the preview automatically as the user types (live preview)
 - **FR-004**: System MUST support standard markdown syntax including headers, bold, italic, lists, links, and code blocks
-- **FR-005**: System MUST display editor and preview simultaneously in a split-screen layout on desktop viewports with equal 50/50 width split and full viewport height
+- **FR-005**: System MUST display editor and preview simultaneously in a split-screen layout on desktop viewports (≥768px) with equal 50/50 width split and full viewport height; layout must display correctly on viewports from 320px to 1920px width without horizontal page scrolling
 - **FR-006**: System MUST provide independent vertical and horizontal scrolling for each pane when content overflows
 - **FR-007**: System MUST provide a toggle/switch control to switch between editor-only and preview-only views on mobile viewports
-- **FR-008**: System MUST display placeholder or example content when editor is empty on initial load
-- **FR-009**: System MUST handle large documents (minimum 10,000 characters) without performance degradation
+- **FR-008**: System MUST display placeholder or example content when editor is empty on initial load. Example MUST demonstrate: headers (# H1, ## H2), **bold**, _italic_, - lists, [links](url), and `code blocks`
+- **FR-009**: System MUST handle large documents (minimum 10,000 characters) with no perceptible input lag (under 16ms frame time per SC-004)
 - **FR-010**: System MUST treat pasted HTML as plain text, not execute or render it
+- **FR-011**: System MUST sanitize rendered HTML output to prevent XSS attacks using DOMPurify or equivalent library
 
 ### Key Entities _(include if feature involves data)_
 
@@ -134,5 +136,5 @@ As a user, I want helpful guidance when starting with an empty editor so that I 
 - **SC-001**: Users can see preview updates within 100 milliseconds of typing any character
 - **SC-002**: Users can successfully create and view formatted markdown content (headers, bold, italic, lists) in a single session
 - **SC-003**: 95% of first-time users can produce formatted markdown output within 2 minutes of opening the application
-- **SC-004**: Application handles documents up to 10,000 characters with no perceptible input lag (under 16ms frame time)
-- **SC-005**: Layout displays correctly on viewports from 320px width to 1920px width without horizontal scrolling
+- **SC-004**: FR-009 validated - Application handles documents up to 10,000 characters with no perceptible input lag (under 16ms frame time)
+- **SC-005**: FR-005 validated - Layout renders correctly across viewport range 320px-1920px with appropriate responsive behavior (split-screen desktop, toggle mobile)

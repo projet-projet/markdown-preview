@@ -54,6 +54,9 @@ Single project structure with component-driven architecture:
   - Import and configure marked parser
   - Implement memoized markdown parsing
   - Export `html`, `isEmpty`, `parse`, `options`, `setOptions`
+- [ ] T006 [P] Create DOMPurify type declarations in `src/types/dompurify.d.ts`:
+  - Import DOMPurify types
+  - Export sanitized type for marked output
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -94,7 +97,6 @@ Single project structure with component-driven architecture:
   - Keyboard navigation support
   - Visible focus indicator
 - [ ] T012 [US1] Update `src/main.tsx` to integrate Editor component
-- [ ] T013 [US1] Add logging for editor operations (console for dev)
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
@@ -187,10 +189,10 @@ Single project structure with component-driven architecture:
   - `aria-pressed` state for toggle button
   - Keyboard accessible toggle
 - [ ] T027 [US3] Update `src/main.tsx` to wrap Editor and Preview with Layout
-- [ ] T028 [US3] Add performance optimization for large documents:
-  - Test with 10,000+ characters
-  - Verify <16ms frame time
-  - Add `useDeferredValue` if needed for preview updates
+- [ ] T028 [US3] Performance validation in `src/main.test.tsx`:
+  - Render 10,000 character document
+  - Measure frame time during typing (must be <16ms)
+  - Only add `useDeferredValue` if measurements exceed threshold
 
 **Checkpoint**: At this point, User Stories 1, 2, AND 3 should all work independently
 
@@ -346,8 +348,8 @@ With multiple developers:
 | Phase     | Description                | Task Count |
 | --------- | -------------------------- | ---------- |
 | Phase 1   | Setup                      | 3          |
-| Phase 2   | Foundational               | 2          |
-| Phase 3   | User Story 1 (Editor)      | 7          |
+| Phase 2   | Foundational               | 3          |
+| Phase 3   | User Story 1 (Editor)      | 6          |
 | Phase 4   | User Story 2 (Preview)     | 7          |
 | Phase 5   | User Story 3 (Layout)      | 8          |
 | Phase 6   | User Story 4 (Empty State) | 5          |
@@ -356,7 +358,7 @@ With multiple developers:
 
 ### Tasks per User Story
 
-- **US1 (P1)**: T007-T013 (7 tasks) - Editor component
+- **US1 (P1)**: T007-T012 (6 tasks) - Editor component
 - **US2 (P1)**: T014-T020 (7 tasks) - Preview component
 - **US3 (P2)**: T021-T028 (8 tasks) - Layout component
 - **US4 (P3)**: T029-T033 (5 tasks) - Empty state
