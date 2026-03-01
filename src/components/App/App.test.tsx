@@ -4,29 +4,20 @@ import userEvent from '@testing-library/user-event';
 import App from '.';
 
 describe('App component', () => {
-  it('renders without crashing', () => {
+  it('renders markdown editor', () => {
     render(<App />);
 
-    const heading = screen.getByRole('heading', { level: 1 });
-    expect(heading).toBeInTheDocument();
-
-    const button = screen.getByRole('button', { name: /count is 0/i });
-    expect(button).toBeInTheDocument();
-
-    const images = screen.getAllByRole('img');
-    expect(images).toHaveLength(3);
+    const editor = screen.getByRole('textbox', { name: /markdown editor/i });
+    expect(editor).toBeInTheDocument();
   });
 
-  it('button click increments count', async () => {
+  it('user can type in the editor', async () => {
     const user = userEvent.setup();
     render(<App />);
 
-    const button = screen.getByRole('button', { name: /count is 0/i });
+    const editor = screen.getByRole('textbox', { name: /markdown editor/i });
+    await user.type(editor, 'Hello');
 
-    await user.click(button);
-    expect(button).toHaveTextContent('count is 1');
-
-    await user.click(button);
-    expect(button).toHaveTextContent('count is 2');
+    expect(editor).toHaveValue('Hello');
   });
 });
