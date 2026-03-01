@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import App from '.';
@@ -89,5 +89,80 @@ describe('App component', () => {
     // This tests the "editor-only" -> "preview-only" branch
     toggleButton = screen.getByRole('button', { name: /show editor/i });
     expect(toggleButton).toBeInTheDocument();
+  });
+
+  describe('responsive behavior', () => {
+    const originalInnerWidth = window.innerWidth;
+
+    beforeAll(() => {
+      Object.defineProperty(window, 'innerWidth', {
+        writable: true,
+        configurable: true,
+        value: originalInnerWidth,
+      });
+    });
+
+    afterAll(() => {
+      Object.defineProperty(window, 'innerWidth', {
+        writable: true,
+        configurable: true,
+        value: originalInnerWidth,
+      });
+    });
+
+    it('switches to editor-only when resizing to mobile viewport', () => {
+      // Start with desktop viewport
+      Object.defineProperty(window, 'innerWidth', {
+        writable: true,
+        configurable: true,
+        value: 1024,
+      });
+
+      render(<App />);
+
+      // Should start in split mode on desktop
+      expect(screen.getByRole('textbox')).toBeInTheDocument();
+      expect(screen.getByRole('region')).toBeInTheDocument();
+
+      // Resize to mobile viewport
+      Object.defineProperty(window, 'innerWidth', {
+        writable: true,
+        configurable: true,
+        value: 375,
+      });
+
+      act(() => {
+        window.dispatchEvent(new Event('resize'));
+      });
+
+      // Preview should be hidden (editor-only mode)
+      expect(screen.getByRole('textbox')).toBeInTheDocument();
+    });
+
+    it('restores split view when resizing back to desktop', () => {
+      // Start with mobile viewport
+      Object.defineProperty(window, 'innerWidth', {
+        writable: true,
+        configurable: true,
+        value: 375,
+      });
+
+      render(<App />);
+
+      // Resize back to desktop
+      Object.defineProperty(window, 'innerWidth', {
+        writable: true,
+        configurable: true,
+        value: 1024,
+      });
+
+      act(() => {
+        window.dispatchEvent(new Event('resize'));
+      });
+
+      // Should restore split view
+      expect(screen.getByRole('textbox')).toBeInTheDocument();
+      expect(screen.getByRole('region')).toBeInTheDocument();
+    });
   });
 });
