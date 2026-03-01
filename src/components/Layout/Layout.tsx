@@ -51,7 +51,7 @@ export function Layout({ children, mode, onToggleView }: LayoutProps) {
             aria-pressed={isDark ? 'true' : 'false'}
             aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
             title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-            className="rounded bg-gray-200 px-3 py-2 text-sm text-gray-700 hover:bg-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+            className="inline-flex h-9 w-9 items-center justify-center rounded bg-gray-200 text-gray-700 hover:bg-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
           >
             {isDark ? '🌙' : '☀️'}
           </button>
