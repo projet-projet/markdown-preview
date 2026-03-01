@@ -32,9 +32,9 @@ Single project structure with component-driven architecture:
 
 **Purpose**: Install dependencies and verify project structure
 
-- [X] T001 Install markdown parser dependencies: `npm install marked dompurify`
-- [X] T002 [P] Verify TypeScript compilation: `npm run lint:tsc`
-- [X] T003 [P] Verify existing tests pass: `npm test`
+- [x] T001 Install markdown parser dependencies: `npm install marked dompurify`
+- [x] T002 [P] Verify TypeScript compilation: `npm run lint:tsc`
+- [x] T003 [P] Verify existing tests pass: `npm test`
 
 ---
 
@@ -44,17 +44,17 @@ Single project structure with component-driven architecture:
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [X] T004 [P] Create TypeScript types in `src/types/markdown.ts`:
+- [x] T004 [P] Create TypeScript types in `src/types/markdown.ts`:
   - `MarkdownDocument` interface
   - `EditorState` interface
   - `ViewportConfiguration` type
   - `PreviewOptions` interface
   - `LayoutMode` union type
-- [X] T005 [P] Create `useMarkdown` hook in `src/hooks/useMarkdown.ts`:
+- [x] T005 [P] Create `useMarkdown` hook in `src/hooks/useMarkdown.ts`:
   - Import and configure marked parser
   - Implement memoized markdown parsing
   - Export `html`, `isEmpty`, `parse`, `options`, `setOptions`
-- [X] T006 [P] Create DOMPurify type declarations in `src/types/dompurify.d.ts`:
+- [x] T006 [P] Create DOMPurify type declarations in `src/types/dompurify.d.ts`:
   - Import DOMPurify types
   - Export sanitized type for marked output
 
@@ -72,31 +72,31 @@ Single project structure with component-driven architecture:
 
 > **CONSTITUTION REQUIREMENT**: Test-First principle mandates tests MUST be written and validated to FAIL before implementation begins.
 
-- [X] T007 [P] [US1] Create Editor component test file `src/components/Editor/Editor.test.tsx` with failing tests:
+- [x] T007 [P] [US1] Create Editor component test file `src/components/Editor/Editor.test.tsx` with failing tests:
   - Renders textarea with provided value
   - Calls onChange callback when user types
   - Displays placeholder when value is empty
   - Handles text selection and deletion
-- [X] T008 [P] [US1] Create integration test in `src/main.test.tsx` with failing tests:
+- [x] T008 [P] [US1] Create integration test in `src/main.test.tsx` with failing tests:
   - User can type markdown text and see it appear in editor
   - User can modify existing text
   - User can select and delete content
 
 ### Implementation for User Story 1
 
-- [X] T009 [P] [US1] Create Editor component structure:
+- [x] T009 [P] [US1] Create Editor component structure:
   - `src/components/Editor/Editor.tsx` - main component
   - `src/components/Editor/index.ts` - barrel export
-- [X] T010 [US1] Implement Editor component in `src/components/Editor/Editor.tsx`:
+- [x] T010 [US1] Implement Editor component in `src/components/Editor/Editor.tsx`:
   - Controlled textarea with value prop
   - onChange handler calling parent callback
   - Placeholder text support
   - TypeScript props interface
-- [X] T011 [US1] Add accessibility to Editor in `src/components/Editor/Editor.tsx`:
+- [x] T011 [US1] Add accessibility to Editor in `src/components/Editor/Editor.tsx`:
   - `aria-label="Markdown editor"`
   - Keyboard navigation support
   - Visible focus indicator
-- [X] T012 [US1] Update `src/main.tsx` to integrate Editor component
+- [x] T012 [US1] Update `src/main.tsx` to integrate Editor component
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
@@ -112,35 +112,35 @@ Single project structure with component-driven architecture:
 
 > **CONSTITUTION REQUIREMENT**: Test-First principle mandates tests MUST be written and validated to FAIL before implementation begins.
 
-- [X] T014 [P] [US2] Create Preview component test file `src/components/Preview/Preview.test.tsx` with failing tests:
+- [x] T014 [P] [US2] Create Preview component test file `src/components/Preview/Preview.test.tsx` with failing tests:
   - Renders markdown as HTML
   - Sanitizes dangerous HTML (XSS prevention)
   - Shows empty state when markdown is empty
   - Updates when markdown prop changes
-- [X] T015 [P] [US2] Create integration test in `src/main.test.tsx` with failing tests:
+- [x] T015 [P] [US2] Create integration test in `src/main.test.tsx` with failing tests:
   - Preview updates automatically as user types in editor
   - Headers, bold, italic, lists render correctly
   - Empty editor shows empty preview state
 
 ### Implementation for User Story 2
 
-- [X] T016 [P] [US2] Create Preview component structure:
+- [x] T016 [P] [US2] Create Preview component structure:
   - `src/components/Preview/Preview.tsx` - main component
   - `src/components/Preview/index.ts` - barrel export
-- [X] T017 [US2] Implement Preview component in `src/components/Preview/Preview.tsx`:
+- [x] T017 [US2] Implement Preview component in `src/components/Preview/Preview.tsx`:
   - Import marked parser via useMarkdown hook
   - Render sanitized HTML output
   - Empty state placeholder support
   - TypeScript props interface
-- [X] T018 [US2] Add HTML sanitization with DOMPurify in `src/components/Preview/Preview.tsx`:
+- [x] T018 [US2] Add HTML sanitization with DOMPurify in `src/components/Preview/Preview.tsx`:
   - Import DOMPurify
   - Sanitize marked output before rendering
   - Treat pasted HTML as plain text (FR-010)
-- [X] T019 [US2] Add accessibility to Preview in `src/components/Preview/Preview.tsx`:
+- [x] T019 [US2] Add accessibility to Preview in `src/components/Preview/Preview.tsx`:
   - `role="region"`
   - `aria-label="Markdown preview"`
   - `aria-live="polite"` for dynamic updates
-- [X] T020 [US2] Update `src/main.tsx` to integrate Editor + Preview with state management:
+- [x] T020 [US2] Update `src/main.tsx` to integrate Editor + Preview with state management:
   - Lift markdown state to App/main
   - Pass state to both Editor and Preview
   - Wire up onChange to update shared state
@@ -159,37 +159,37 @@ Single project structure with component-driven architecture:
 
 > **CONSTITUTION REQUIREMENT**: Test-First principle mandates tests MUST be written and validated to FAIL before implementation begins.
 
-- [X] T021 [P] [US3] Create Layout component test file `src/components/Layout/Layout.test.tsx` with failing tests:
+- [x] T021 [P] [US3] Create Layout component test file `src/components/Layout/Layout.test.tsx` with failing tests:
   - Displays split view (50/50) on desktop viewport
   - Each pane scrolls independently
   - Toggle button switches editor/preview on mobile
   - Full viewport height layout
-- [X] T022 [P] [US3] Create responsive layout integration test in `src/main.test.tsx` with failing tests:
+- [x] T022 [P] [US3] Create responsive layout integration test in `src/main.test.tsx` with failing tests:
   - Desktop (≥768px): Editor and preview side-by-side
   - Mobile (<768px): Toggle between editor-only and preview-only
   - Independent vertical and horizontal scrolling
 
 ### Implementation for User Story 3
 
-- [X] T023 [P] [US3] Create Layout component structure:
+- [x] T023 [P] [US3] Create Layout component structure:
   - `src/components/Layout/Layout.tsx` - main component
   - `src/components/Layout/index.ts` - barrel export
-- [X] T024 [US3] Implement Layout component in `src/components/Layout/Layout.tsx`:
+- [x] T024 [US3] Implement Layout component in `src/components/Layout/Layout.tsx`:
   - Flexbox container with `flex flex-row h-screen`
   - Editor and Preview panes with `flex-1 overflow-auto`
   - Mobile toggle button with conditional rendering
   - Viewport mode state management
-- [X] T025 [US3] Add responsive Tailwind classes in `src/components/Layout/Layout.tsx`:
+- [x] T025 [US3] Add responsive Tailwind classes in `src/components/Layout/Layout.tsx`:
   - Desktop (≥768px): `md:flex-row` for side-by-side layout
   - Mobile (<768px): Toggle visibility with conditional classes
   - Independent scrolling: `overflow-auto` on each pane
   - Full viewport height: `h-screen` on container
-- [X] T026 [US3] Add accessibility to Layout toggle in `src/components/Layout/Layout.tsx`:
+- [x] T026 [US3] Add accessibility to Layout toggle in `src/components/Layout/Layout.tsx`:
   - `aria-label` indicating current view
   - `aria-pressed` state for toggle button
   - Keyboard accessible toggle
-- [X] T027 [US3] Update `src/main.tsx` to wrap Editor and Preview with Layout
-- [X] T028 [US3] Performance validation in `src/main.test.tsx`:
+- [x] T027 [US3] Update `src/main.tsx` to wrap Editor and Preview with Layout
+- [x] T028 [US3] Performance validation in `src/main.test.tsx`:
   - Render 10,000 character document
   - Measure frame time during typing (must be <16ms)
   - Only add `useDeferredValue` if measurements exceed threshold
@@ -208,42 +208,84 @@ Single project structure with component-driven architecture:
 
 > **CONSTITUTION REQUIREMENT**: Test-First principle mandates tests MUST be written and validated to FAIL before implementation begins.
 
-- [X] T029 [P] [US4] Create empty state test in `src/components/Editor/Editor.test.tsx` with failing tests:
+- [x] T029 [P] [US4] Create empty state test in `src/components/Editor/Editor.test.tsx` with failing tests:
   - Placeholder displays when editor is empty on load
   - Placeholder disappears when user starts typing
   - Placeholder reappears when all content is cleared
-- [X] T030 [P] [US4] Create empty state test in `src/components/Preview/Preview.test.tsx` with failing tests:
+- [x] T030 [P] [US4] Create empty state test in `src/components/Preview/Preview.test.tsx` with failing tests:
   - Preview shows empty state message when no content
   - Empty state is visually distinct (styled)
 
 ### Implementation for User Story 4
 
-- [X] T031 [US4] Add placeholder styling in `src/components/Editor/Editor.tsx`:
+- [x] T031 [US4] Add placeholder styling in `src/components/Editor/Editor.tsx`:
   - CSS for placeholder text (gray, italic)
   - Example markdown text showing headers, bold, lists
-- [X] T032 [US4] Add empty state placeholder in `src/components/Preview/Preview.tsx`:
+- [x] T032 [US4] Add empty state placeholder in `src/components/Preview/Preview.tsx`:
   - Default empty state message
   - Configurable via props
-- [X] T033 [US4] Update `src/types/markdown.ts` with `emptyPlaceholder` in PreviewOptions
+- [x] T033 [US4] Update `src/types/markdown.ts` with `emptyPlaceholder` in PreviewOptions
 
 **Checkpoint**: All user stories should now be independently functional
 
 ---
 
-## Phase 7: Polish & Cross-Cutting Concerns
+## Phase 7: User Story 5 - Dark Mode Support (Priority: P2)
+
+**Goal**: Provide dark mode toggle with system preference detection and persistence
+
+**Independent Test**: User can toggle dark mode via button; preference persists across page reloads
+
+### Tests for User Story 5 (MANDATORY per Constitution) ⚠️
+
+> **CONSTITUTION REQUIREMENT**: Test-First principle mandates tests MUST be written and validated to FAIL before implementation begins.
+
+- [x] T034 [P] [US5] Create dark mode toggle test in `src/components/Layout/Layout.test.tsx` with failing tests:
+  - Displays dark mode toggle button
+  - Toggles dark mode when clicked
+  - Toggles back to light mode when clicked again
+  - Shows correct icon based on current mode (sun/moon)
+  - Has correct aria-pressed state
+
+### Implementation for User Story 5
+
+- [x] T035 [US5] Add dark mode state management in `src/components/Layout/Layout.tsx`:
+  - useState for dark mode tracking
+  - handleToggleDark function to toggle class and localStorage
+- [x] T036 [US5] Add dark mode toggle button in `src/components/Layout/Layout.tsx`:
+  - Sun/moon icon based on current mode
+  - aria-label and aria-pressed for accessibility
+  - Visible at all viewport sizes
+- [x] T037 [US5] Add dark mode styling to Editor in `src/components/Editor/Editor.tsx`:
+  - bg-white/dark:bg-gray-900 for background
+  - text-gray-900/dark:text-gray-100 for text
+- [x] T038 [US5] Add dark mode styling to Preview in `src/components/Preview/Preview.tsx`:
+  - bg-white/dark:bg-gray-800 for background
+  - dark:prose-invert for inverted prose colors
+- [x] T039 [US5] Add dark mode initialization in `index.html`:
+  - Check localStorage and system preference on load
+  - Apply dark class to html element
+- [x] T040 [US5] Add dark mode border styling in `src/components/Layout/Layout.tsx`:
+  - dark:border-gray-700 for pane divider
+
+**Checkpoint**: Dark mode fully functional with persistence
+
+---
+
+## Phase 8: Polish & Cross-Cutting Concerns
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [X] T034 [P] Run full test suite: `npm test` - all tests must pass
-- [X] T035 [P] Run type check: `npm run lint:tsc` - no errors
-- [X] T036 [P] Run linter: `npm run lint` - no errors
-- [X] T037 [P] Verify accessibility with browser DevTools
-- [X] T038 [P] Performance test with 10,000 character document
-- [X] T039 [P] Cross-browser testing (Chrome, Firefox, Safari, Edge)
-- [X] T040 [P] Mobile testing (iOS Safari, Android Chrome)
-- [X] T041 Update quickstart.md with actual implementation details
-- [X] T042 Code cleanup and refactoring pass
-- [X] T043 Update README.md with feature documentation
+- [x] T041 [P] Run full test suite: `npm test` - all tests must pass
+- [x] T042 [P] Run type check: `npm run lint:tsc` - no errors
+- [x] T043 [P] Run linter: `npm run lint` - no errors
+- [x] T044 [P] Verify accessibility with browser DevTools
+- [x] T045 [P] Performance test with 10,000 character document
+- [x] T046 [P] Cross-browser testing (Chrome, Firefox, Safari, Edge)
+- [x] T047 [P] Mobile testing (iOS Safari, Android Chrome)
+- [x] T048 Update quickstart.md with actual implementation details
+- [x] T049 Code cleanup and refactoring pass
+- [x] T050 Update README.md with feature documentation
 
 ---
 
@@ -353,8 +395,9 @@ With multiple developers:
 | Phase 4   | User Story 2 (Preview)     | 7          |
 | Phase 5   | User Story 3 (Layout)      | 8          |
 | Phase 6   | User Story 4 (Empty State) | 5          |
-| Phase 7   | Polish                     | 10         |
-| **Total** |                            | **42**     |
+| Phase 7   | User Story 5 (Dark Mode)   | 7          |
+| Phase 8   | Polish                     | 10         |
+| **Total** |                            | **49**     |
 
 ### Tasks per User Story
 
@@ -362,6 +405,7 @@ With multiple developers:
 - **US2 (P1)**: T014-T020 (7 tasks) - Preview component
 - **US3 (P2)**: T021-T028 (8 tasks) - Layout component
 - **US4 (P3)**: T029-T033 (5 tasks) - Empty state
+- **US5 (P2)**: T034-T040 (7 tasks) - Dark mode support
 
 ### Independent Test Criteria
 
@@ -371,6 +415,7 @@ With multiple developers:
 | US2   | User sees live preview updates as they type |
 | US3   | Desktop: split-screen; Mobile: toggle views |
 | US4   | Empty editor shows helpful placeholder      |
+| US5   | Dark mode toggle with persistence           |
 
 ### Suggested MVP Scope
 

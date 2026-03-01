@@ -15,6 +15,7 @@
 - **Styling**: Tailwind CSS v4.2.1 with `@tailwindcss/typography` plugin for prose styling
 - **Layout**: Responsive flexbox layout with `h-screen`, `flex-col` (mobile) and `md:flex-row` (desktop)
 - **State Management**: React `useState` and `useMemo` hooks for markdown parsing memoization
+- **Dark Mode**: System preference detection with manual toggle; preference persisted to localStorage
 
 ### Component Architecture
 
@@ -125,6 +126,22 @@ As a user, I want helpful guidance when starting with an empty editor so that I 
 
 ---
 
+### User Story 5 - Dark Mode Support (Priority: P2)
+
+As a user, I want to toggle between light and dark themes so that I can reduce eye strain in low-light environments.
+
+**Why this priority**: Improves accessibility and user comfort during extended editing sessions.
+
+**Independent Test**: User can toggle dark mode via button; preference persists across page reloads.
+
+**Acceptance Scenarios**:
+
+1. **Given** the application loads, **When** user's system prefers dark mode, **Then** dark theme is applied automatically
+2. **Given** the application is in light mode, **When** user clicks dark mode toggle, **Then** theme switches to dark mode
+3. **Given** dark mode is enabled, **When** user refreshes page, **Then** dark mode persists
+
+---
+
 ### Edge Cases
 
 - What happens when user pastes large amounts of text (10,000+ characters)? System should handle without performance degradation.
@@ -149,6 +166,10 @@ As a user, I want helpful guidance when starting with an empty editor so that I 
 - **FR-009**: System MUST handle large documents (minimum 10,000 characters) with no perceptible input lag (under 16ms frame time per SC-004)
 - **FR-010**: System MUST treat pasted HTML as plain text, not execute or render it
 - **FR-011**: System MUST sanitize rendered HTML output to prevent XSS attacks using DOMPurify or equivalent library
+- **FR-012**: System MUST provide a dark mode toggle button in the header accessible at all viewport sizes
+- **FR-013**: System MUST detect and respect user's system color scheme preference on initial load
+- **FR-014**: System MUST persist user's theme preference to localStorage and restore on subsequent visits
+- **FR-015**: System MUST apply appropriate dark mode styling to editor background, text colors, preview background, and UI elements
 
 ### Key Entities _(include if feature involves data)_
 
@@ -165,3 +186,4 @@ As a user, I want helpful guidance when starting with an empty editor so that I 
 - **SC-003**: 95% of first-time users can produce formatted markdown output within 2 minutes of opening the application
 - **SC-004**: FR-009 validated - Application handles documents up to 10,000 characters with no perceptible input lag (under 16ms frame time)
 - **SC-005**: FR-005 validated - Layout renders correctly across viewport range 320px-1920px with appropriate responsive behavior (split-screen desktop, toggle mobile)
+- **SC-006**: FR-012/FR-013/FR-014 validated - Dark mode toggle is visible and functional; system preference is respected on load; preference persists across page reloads
