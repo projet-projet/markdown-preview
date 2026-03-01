@@ -31,7 +31,13 @@
 
 _GATE: Must pass before Phase 0 research. Re-check after Phase 1 design._
 
-[Gates determined based on constitution file]
+Verify alignment with project principles:
+
+- [ ] **Test-First**: Tests planned for all new functionality
+- [ ] **Type Safety**: All new code will have explicit TypeScript types
+- [ ] **Component-Driven**: New UI follows functional component patterns
+- [ ] **Accessibility**: A11y requirements documented for user-facing features
+- [ ] **Simplicity (YAGNI)**: Complexity justified; no premature optimization
 
 ## Project Structure
 

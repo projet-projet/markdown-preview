@@ -1,9 +1,21 @@
 # Feature Specification: [FEATURE NAME]
 
-**Feature Branch**: `[###-feature-name]`  
-**Created**: [DATE]  
-**Status**: Draft  
+**Feature Branch**: `[###-feature-name]`
+**Created**: [DATE]
+**Status**: Draft
 **Input**: User description: "$ARGUMENTS"
+
+## Constitution Alignment
+
+Verify this feature adheres to project principles:
+
+| Principle           | Application to This Feature   |
+| ------------------- | ----------------------------- |
+| Test-First          | [Describe test strategy]      |
+| Type Safety         | [New types/interfaces needed] |
+| Component-Driven    | [Component structure plan]    |
+| Accessibility First | [A11y considerations]         |
+| Simplicity (YAGNI)  | [Justification of complexity] |
 
 ## User Scenarios & Testing _(mandatory)_
 
