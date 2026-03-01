@@ -138,7 +138,7 @@ describe('Layout Component', () => {
       const toggleButton = screen.getByRole('button', {
         name: /show preview/i,
       });
-      expect(toggleButton).toHaveAttribute('aria-label', 'Show preview');
+      expect(toggleButton).toHaveAttribute('aria-label', 'Show Preview');
     });
 
     it('toggle button is keyboard accessible', async () => {

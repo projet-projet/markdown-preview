@@ -16,7 +16,7 @@ export function Layout({
   const isPreviewOnly = mode === 'preview-only';
   const isSplit = mode === 'split';
 
-  const toggleLabel = isEditorOnly ? 'Show preview' : 'Show editor';
+  const toggleLabel = isEditorOnly ? 'Show Preview' : 'Show Editor';
 
   // Convert children to array for selective rendering
   const childrenArray = Array.isArray(children) ? children : [children];
