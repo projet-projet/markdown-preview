@@ -29,8 +29,8 @@ export function Layout({
       className={`flex h-screen flex-col ${className}`}
     >
       {/* Header */}
-      <header className="flex items-center justify-between border-b border-gray-200 px-4 py-2">
-        <h1 className="text-lg font-semibold">Markdown Preview</h1>
+      <header className="flex h-16 items-center justify-between border-b border-gray-200 px-4">
+        <h1 className="text-2xl font-semibold">Markdown Preview</h1>
         <button
           type="button"
           onClick={onToggleView}
