@@ -1,6 +1,7 @@
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { DEFAULT_MARKDOWN } from '../../constants';
 import App from '.';
 
 describe('App component', () => {
@@ -46,38 +47,7 @@ describe('App component', () => {
     render(<App />);
 
     const editor = screen.getByRole('textbox', { name: /markdown editor/i });
-    expect(editor).toHaveValue(
-      `# Heading
-
-**bold** *italic* \`inline code\`
-
-- Unordered list
-- Another item
-
-1. Ordered list
-2. Second item
-
-[link](https://example.com)
-
-![image](https://picsum.photos/100)
-
-> Blockquote
-
-\`\`\`js
-const greeting = "Hello";
-console.log(greeting);
-\`\`\`
-
-| Table | Header |
-|-------|--------|
-| Cell  | Data   |
-
----
-
-- [ ] Task
-- [x] Done
-`,
-    );
+    expect(editor).toHaveValue(DEFAULT_MARKDOWN);
   });
 
   it('renders preview section', () => {

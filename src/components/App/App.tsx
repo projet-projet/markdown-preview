@@ -1,42 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 
+import { DEFAULT_MARKDOWN } from '../../constants';
 import type { LayoutMode } from '../../types/markdown';
 import { Editor } from '../Editor';
 import { Layout } from '../Layout';
 import { Preview } from '../Preview';
 
 const MOBILE_BREAKPOINT = 768;
-
-const DEFAULT_MARKDOWN = `# Heading
-
-**bold** *italic* \`inline code\`
-
-- Unordered list
-- Another item
-
-1. Ordered list
-2. Second item
-
-[link](https://example.com)
-
-![image](https://picsum.photos/100)
-
-> Blockquote
-
-\`\`\`js
-const greeting = "Hello";
-console.log(greeting);
-\`\`\`
-
-| Table | Header |
-|-------|--------|
-| Cell  | Data   |
-
----
-
-- [ ] Task
-- [x] Done
-`;
 
 export default function App() {
   const [markdown, setMarkdown] = useState(DEFAULT_MARKDOWN);
