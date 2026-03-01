@@ -4,6 +4,24 @@ import userEvent from '@testing-library/user-event';
 import App from '.';
 
 describe('App component', () => {
+  const originalInnerWidth = window.innerWidth;
+
+  beforeAll(() => {
+    Object.defineProperty(window, 'innerWidth', {
+      writable: true,
+      configurable: true,
+      value: originalInnerWidth,
+    });
+  });
+
+  afterAll(() => {
+    Object.defineProperty(window, 'innerWidth', {
+      writable: true,
+      configurable: true,
+      value: originalInnerWidth,
+    });
+  });
+
   it('renders markdown editor', () => {
     render(<App />);
 
@@ -161,6 +179,45 @@ describe('App component', () => {
       });
 
       // Should restore split view
+      expect(screen.getByRole('textbox')).toBeInTheDocument();
+      expect(screen.getByRole('region')).toBeInTheDocument();
+    });
+
+    it('restores split view after user toggles on mobile then resizes to desktop', async () => {
+      const user = userEvent.setup();
+
+      // Start with mobile viewport
+      Object.defineProperty(window, 'innerWidth', {
+        writable: true,
+        configurable: true,
+        value: 375,
+      });
+
+      render(<App />);
+
+      // On mobile, initial mode is 'editor-only', so button says "Show preview"
+      const toggleButton = screen.getByRole('button', {
+        name: /show preview/i,
+      });
+      await user.click(toggleButton);
+
+      // Now in preview-only mode, button should say "Show editor"
+      expect(
+        screen.getByRole('button', { name: /show editor/i }),
+      ).toBeInTheDocument();
+
+      // Resize to desktop
+      Object.defineProperty(window, 'innerWidth', {
+        writable: true,
+        configurable: true,
+        value: 1024,
+      });
+
+      act(() => {
+        window.dispatchEvent(new Event('resize'));
+      });
+
+      // Should restore split view with both editor and preview
       expect(screen.getByRole('textbox')).toBeInTheDocument();
       expect(screen.getByRole('region')).toBeInTheDocument();
     });
