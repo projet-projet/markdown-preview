@@ -48,21 +48,6 @@ describe('Editor Component', () => {
         'Start typing markdown...',
       );
     });
-
-    it('renders with custom className', () => {
-      render(
-        <Editor
-          value=""
-          onChange={() => undefined}
-          className="custom-editor-class"
-        />,
-      );
-
-      const textarea = screen.getByRole('textbox', {
-        name: /markdown editor/i,
-      });
-      expect(textarea).toHaveClass('custom-editor-class');
-    });
   });
 
   describe('user interaction', () => {

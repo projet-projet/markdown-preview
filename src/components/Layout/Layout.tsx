@@ -7,12 +7,7 @@ import type { LayoutProps } from '../../types/markdown';
  * Layout component for responsive editor/preview arrangement.
  * Supports split view (desktop) and toggle view (mobile).
  */
-export function Layout({
-  children,
-  mode,
-  onToggleView,
-  className = '',
-}: LayoutProps) {
+export function Layout({ children, mode, onToggleView }: LayoutProps) {
   const [isDark, setIsDark] = useState(() =>
     document.documentElement.classList.contains('dark'),
   );
@@ -41,10 +36,7 @@ export function Layout({
   const previewPane = childrenArray[1] as ReactNode;
 
   return (
-    <div
-      data-testid="layout-container"
-      className={`flex h-screen flex-col ${className}`}
-    >
+    <div data-testid="layout-container" className="flex h-screen flex-col">
       {/* Header */}
       <header className="flex h-16 items-center justify-between border-b border-gray-200 bg-gray-50 px-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
