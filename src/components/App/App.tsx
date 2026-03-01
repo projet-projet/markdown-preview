@@ -9,14 +9,33 @@ const MOBILE_BREAKPOINT = 768;
 
 const DEFAULT_MARKDOWN = `# Heading
 
-**bold** *italic* \`code\`
+**bold** *italic* \`inline code\`
 
-- List item
+- Unordered list
 - Another item
 
-[link](url)
+1. Ordered list
+2. Second item
 
-> quote
+[link](https://example.com)
+
+![image](https://via.placeholder.com/150)
+
+> Blockquote
+
+\`\`\`js
+const greeting = "Hello";
+console.log(greeting);
+\`\`\`
+
+| Table | Header |
+|-------|--------|
+| Cell  | Data   |
+
+---
+
+- [ ] Task
+- [x] Done
 `;
 
 export default function App() {

@@ -47,7 +47,36 @@ describe('App component', () => {
 
     const editor = screen.getByRole('textbox', { name: /markdown editor/i });
     expect(editor).toHaveValue(
-      '# Heading\n\n**bold** *italic* `code`\n\n- List item\n- Another item\n\n[link](url)\n\n> quote\n',
+      `# Heading
+
+**bold** *italic* \`inline code\`
+
+- Unordered list
+- Another item
+
+1. Ordered list
+2. Second item
+
+[link](https://example.com)
+
+![image](https://via.placeholder.com/150)
+
+> Blockquote
+
+\`\`\`js
+const greeting = "Hello";
+console.log(greeting);
+\`\`\`
+
+| Table | Header |
+|-------|--------|
+| Cell  | Data   |
+
+---
+
+- [ ] Task
+- [x] Done
+`,
     );
   });
 
