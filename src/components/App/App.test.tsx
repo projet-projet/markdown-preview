@@ -84,17 +84,17 @@ describe('App component', () => {
     render(<App />);
 
     // The toggle button exists in the DOM (even if visually hidden on desktop)
-    // It should say "Show editor" because default mode is "split" (not editor-only)
-    const toggleButton = screen.getByRole('button', { name: /show editor/i });
+    // It should say "Editor" because default mode is "split" (not editor-only)
+    const toggleButton = screen.getByRole('button', { name: /editor/i });
     expect(toggleButton).toBeInTheDocument();
 
     // Click the button to trigger the toggle
     await user.click(toggleButton);
 
     // After clicking, mode should change from "split" -> "preview-only"
-    // Button should now say "Show preview" (because we're in preview-only mode)
+    // Button should now say "Preview" (because we're in preview-only mode)
     const newToggleButton = screen.getByRole('button', {
-      name: /show preview/i,
+      name: /preview/i,
     });
     expect(newToggleButton).toBeInTheDocument();
   });
@@ -104,19 +104,19 @@ describe('App component', () => {
     render(<App />);
 
     // Start in split mode, click to go to preview-only
-    let toggleButton = screen.getByRole('button', { name: /show editor/i });
+    let toggleButton = screen.getByRole('button', { name: /editor/i });
     await user.click(toggleButton);
 
-    // Now in preview-only mode, button should say "Show preview"
-    toggleButton = screen.getByRole('button', { name: /show preview/i });
+    // Now in preview-only mode, button should say "Preview"
+    toggleButton = screen.getByRole('button', { name: /preview/i });
     expect(toggleButton).toBeInTheDocument();
 
     // Click again to go to editor-only
     await user.click(toggleButton);
 
-    // Now in editor-only mode, button should say "Show editor"
+    // Now in editor-only mode, button should say "Editor"
     // This tests the "editor-only" -> "preview-only" branch
-    toggleButton = screen.getByRole('button', { name: /show editor/i });
+    toggleButton = screen.getByRole('button', { name: /editor/i });
     expect(toggleButton).toBeInTheDocument();
   });
 
@@ -206,15 +206,15 @@ describe('App component', () => {
 
       render(<App />);
 
-      // On mobile, initial mode is 'editor-only', so button says "Show preview"
+      // On mobile, initial mode is 'editor-only', so button says "Preview"
       const toggleButton = screen.getByRole('button', {
-        name: /show preview/i,
+        name: /preview/i,
       });
       await user.click(toggleButton);
 
-      // Now in preview-only mode, button should say "Show editor"
+      // Now in preview-only mode, button should say "Editor"
       expect(
-        screen.getByRole('button', { name: /show editor/i }),
+        screen.getByRole('button', { name: /editor/i }),
       ).toBeInTheDocument();
 
       // Resize to desktop

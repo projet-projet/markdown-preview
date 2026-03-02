@@ -59,7 +59,7 @@ describe('Layout Component', () => {
       );
 
       const toggleButton = screen.getByRole('button', {
-        name: /show preview/i,
+        name: /preview/i,
       });
       expect(toggleButton).toBeInTheDocument();
 
@@ -75,7 +75,7 @@ describe('Layout Component', () => {
       );
 
       const toggleButton = screen.getByRole('button', {
-        name: /show preview/i,
+        name: /preview/i,
       });
       expect(toggleButton).toHaveAttribute('aria-pressed', 'false');
     });
@@ -87,7 +87,7 @@ describe('Layout Component', () => {
         </Layout>,
       );
 
-      let toggleButton = screen.getByRole('button', { name: /show preview/i });
+      let toggleButton = screen.getByRole('button', { name: /preview/i });
       expect(toggleButton).toBeInTheDocument();
 
       rerender(
@@ -96,7 +96,7 @@ describe('Layout Component', () => {
         </Layout>,
       );
 
-      toggleButton = screen.getByRole('button', { name: /show editor/i });
+      toggleButton = screen.getByRole('button', { name: /editor/i });
       expect(toggleButton).toBeInTheDocument();
     });
   });
@@ -139,7 +139,7 @@ describe('Layout Component', () => {
       );
 
       const toggleButton = screen.getByRole('button', {
-        name: /show preview/i,
+        name: /preview/i,
       });
 
       // Focus and activate with keyboard

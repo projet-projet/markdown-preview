@@ -13,7 +13,7 @@ export function Layout({ children, mode, onToggleView }: LayoutProps) {
   const isPreviewOnly = mode === 'preview-only';
   const isSplit = mode === 'split';
 
-  const toggleLabel = isEditorOnly ? 'Show Preview' : 'Show Editor';
+  const toggleLabel = isEditorOnly ? 'Preview' : 'Editor';
 
   // Convert children to array for selective rendering
   const childrenArray = Array.isArray(children) ? children : [children];
