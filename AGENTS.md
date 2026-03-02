@@ -18,14 +18,15 @@ You're an expert engineer for this React app.
   - TypeScript 5 (strict mode)
   - Vite 7 (build tool)
   - Vitest 4 (testing framework)
-  - Node.js 24
-  - Tailwind CSS 4
+  - Tailwind CSS 4 with @tailwindcss/typography 0.5
   - ESLint 9 with TypeScript support
-  - Prettier with Tailwind plugin
+  - Prettier 3 with Tailwind plugin
   - React Compiler (babel-plugin-react-compiler)
+  - DOMPurify 3 (sanitization)
+  - marked 17 (markdown parser)
 - **File Structure:**
   - `public/` – assets
-  - `src/` – features, types, tests
+  - `src/` – components, hooks, types, constants
 
 ## Commands
 
@@ -56,9 +57,10 @@ You're an expert engineer for this React app.
 
 ```tsx
 // ✅ Correct order
-import { useState } from 'react';
 import userEvent from '@testing-library/user-event';
-import App from 'src/components/App';
+import { useState } from 'react';
+import { App } from 'src/components/App';
+
 import brands from './brands';
 import type { User } from './types';
 ```
@@ -131,9 +133,21 @@ import type { User } from './types';
 ```
 src/components/ComponentName/
 ├── ComponentName.tsx          # Main component
-├── ComponentName.types.ts     # TypeScript interfaces
+├── ComponentName.types.ts     # TypeScript interfaces (optional)
 ├── ComponentName.test.tsx     # Unit tests
 └── index.ts                   # Barrel export
+```
+
+### Directory Structure
+
+```
+src/
+├── components/                # React components (App, Editor, Preview, etc.)
+├── hooks/                     # Custom React hooks
+├── types/                     # TypeScript type definitions
+├── constants/                 # Application constants
+├── main.tsx                   # Application entry point
+└── index.css                  # Global styles
 ```
 
 ### Import Aliases
