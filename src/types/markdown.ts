@@ -1,56 +1,7 @@
 /**
- * Represents the markdown content being edited.
- */
-export interface MarkdownDocument {
-  /** Raw markdown text input by the user */
-  raw: string;
-  /** Rendered HTML output from markdown parser */
-  rendered: string;
-  /** Timestamp of last edit (for potential future features) */
-  lastModified?: number;
-}
-
-/**
- * Tracks the current state of the editor component.
- */
-export interface EditorState {
-  /** Current markdown content */
-  content: string;
-  /** Cursor/caret position in editor */
-  cursorPosition: {
-    line: number;
-    column: number;
-    offset: number;
-  };
-  /** Text selection range (if any) */
-  selection: {
-    start: number;
-    end: number;
-  } | null;
-  /** Whether editor is currently focused */
-  isFocused: boolean;
-  /** Whether content has been modified since load */
-  isDirty: boolean;
-}
-
-/**
  * Defines the layout mode based on available screen width.
  */
 export type LayoutMode = 'split' | 'editor-only' | 'preview-only';
-
-/**
- * Configuration for the viewport and layout behavior.
- */
-export interface ViewportConfiguration {
-  /** Current layout mode */
-  mode: LayoutMode;
-  /** Viewport width in pixels */
-  viewportWidth: number;
-  /** Viewport height in pixels */
-  viewportHeight: number;
-  /** Breakpoint for mobile layout (default: 768px) */
-  mobileBreakpoint: number;
-}
 
 /**
  * Configuration for markdown rendering.
@@ -85,18 +36,8 @@ export interface EditorProps {
   value: string;
   /** Callback when content changes */
   onChange: (value: string) => void;
-  /** Callback when cursor position changes */
-  onCursorChange?: (position: {
-    line: number;
-    column: number;
-    offset: number;
-  }) => void;
   /** Placeholder text when empty */
   placeholder?: string;
-  /** Whether editor is disabled */
-  disabled?: boolean;
-  /** CSS class names */
-  className?: string;
 }
 
 /**
@@ -107,8 +48,6 @@ export interface PreviewProps {
   markdown: string;
   /** Rendering options */
   options?: Partial<PreviewOptions>;
-  /** CSS class names */
-  className?: string;
   /** Aria label for accessibility */
   ariaLabel?: string;
 }
@@ -123,22 +62,4 @@ export interface LayoutProps {
   mode: LayoutMode;
   /** Callback to toggle view mode (mobile) */
   onToggleView?: () => void;
-  /** CSS class names */
-  className?: string;
-}
-
-/**
- * Return type for the useMarkdown hook.
- */
-export interface UseMarkdownReturn {
-  /** Parsed HTML from markdown */
-  html: string;
-  /** Whether content is empty */
-  isEmpty: boolean;
-  /** Parse markdown manually (for testing) */
-  parse: (markdown: string) => string;
-  /** Current parsing options */
-  options: PreviewOptions;
-  /** Update parsing options */
-  setOptions: (options: Partial<PreviewOptions>) => void;
 }
