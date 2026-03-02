@@ -1,5 +1,6 @@
 /**
  * GitHub icon button component that links to the repository.
+ * Hidden on mobile, visible on desktop.
  */
 export function GitHubButton() {
   return (
@@ -9,7 +10,7 @@ export function GitHubButton() {
       rel="noopener noreferrer"
       aria-label="View repository on GitHub"
       title="View repository on GitHub"
-      className="inline-flex h-9 w-9 items-center justify-center rounded bg-gray-200 text-gray-700 hover:bg-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+      className="hidden h-9 w-9 items-center justify-center rounded bg-gray-200 text-gray-700 hover:bg-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none md:inline-flex dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
     >
       <svg
         data-testid="github-icon"

@@ -24,7 +24,7 @@ export function Layout({ children, mode, onToggleView }: LayoutProps) {
     <div data-testid="layout-container" className="flex h-screen flex-col">
       {/* Header */}
       <header className="flex h-16 shrink-0 items-center justify-between border-b border-gray-200 bg-gray-50 px-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+        <h1 className="text-xl font-bold text-gray-900 md:text-2xl dark:text-white">
           Markdown Preview
         </h1>
         <div className="flex items-center gap-2">
