@@ -22,23 +22,15 @@ This document defines the public interface contracts for components exposed by t
 interface EditorProps {
   value: string;
   onChange: (value: string) => void;
-  onCursorChange?: (position: {
-    line: number;
-    column: number;
-    offset: number;
-  }) => void;
   placeholder?: string;
-  disabled?: boolean;
 }
 ```
 
 **Behavioral Contract**:
 
 1. **OnChange**: MUST fire on every keystroke that modifies content
-2. **OnCursorChange**: MUST fire when cursor position changes (optional)
-3. **Placeholder**: MUST display when value is empty string
-4. **Disabled**: When true, user cannot interact with editor
-5. **Value**: Controlled component—parent controls content
+2. **Placeholder**: MUST display when value is empty string
+3. **Value**: Controlled component—parent controls content
 
 **Accessibility Contract**:
 
@@ -98,7 +90,7 @@ interface PreviewProps {
 
 ### Layout Component
 
-**File**: `src/components/Layout/Layout.tsx\*\*
+**File**: `src/components/Layout/Layout.tsx`
 
 **Purpose**: Manages responsive layout for editor and preview panes.
 
@@ -132,41 +124,6 @@ interface LayoutProps {
 
 ---
 
-## Custom Hook Contract
-
-### useMarkdown
-
-**File**: `src/hooks/useMarkdown.ts`
-
-**Purpose**: Handles markdown parsing with memoization.
-
-**Public Interface**:
-
-```typescript
-interface UseMarkdownReturn {
-  html: string;
-  isEmpty: boolean;
-  parse: (markdown: string) => string;
-  options: PreviewOptions;
-  setOptions: (options: Partial<PreviewOptions>) => void;
-}
-
-function useMarkdown(options?: Partial<PreviewOptions>): UseMarkdownReturn;
-```
-
-**Behavioral Contract**:
-
-1. **Memoization**: MUST memoize HTML output to prevent re-parsing
-2. **Updates**: MUST re-parse only when markdown input changes
-3. **Options**: MUST apply options to parser configuration
-
-**Performance Contract**:
-
-- Parse time MUST be <16ms for 10,000 character input
-- MUST NOT cause layout shifts on update
-
----
-
 ## Integration Points
 
 ### Parent Component (App)
@@ -176,13 +133,12 @@ The App component integrates all sub-components:
 ```typescript
 function App() {
   const [markdown, setMarkdown] = useState('');
-  const { html } = useMarkdown();
   const [mode, setMode] = useState<LayoutMode>('split');
 
   return (
     <Layout mode={mode} onToggleView={() => setMode(mode === 'editor-only' ? 'preview-only' : 'editor-only')}>
       <Editor value={markdown} onChange={setMarkdown} />
-      <Preview markdown={html} />
+      <Preview markdown={markdown} />
     </Layout>
   );
 }
@@ -191,7 +147,7 @@ function App() {
 **Data Flow**:
 
 ```
-User Input → Editor.onChange → App.setState → useMarkdown.parse → Preview.render
+User Input → Editor.onChange → App.setState → Preview.render
 ```
 
 ---
@@ -207,7 +163,6 @@ Each component MUST have tests for:
 - [ ] Renders with provided value
 - [ ] Calls onChange on user input
 - [ ] Displays placeholder when empty
-- [ ] Respects disabled prop
 - [ ] Keyboard navigation works
 
 **Preview**:
@@ -223,12 +178,6 @@ Each component MUST have tests for:
 - [ ] Toggles between editor/preview on mobile
 - [ ] Independent scrolling for each pane
 
-**useMarkdown**:
-
-- [ ] Returns parsed HTML
-- [ ] Memoizes results
-- [ ] Respects options
-
 ---
 
 ## Version History
@@ -236,3 +185,4 @@ Each component MUST have tests for:
 | Version | Date       | Changes                                       |
 | ------- | ---------- | --------------------------------------------- |
 | 1.0.0   | 2026-03-01 | Initial contracts for markdown editor feature |
+| 1.0.1   | 2026-03-01 | Removed unused useMarkdown hook and props     |

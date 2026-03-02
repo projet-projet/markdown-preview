@@ -14,7 +14,7 @@
 - **HTML Sanitization**: `DOMPurify` v3.3.1 - Prevents XSS attacks by sanitizing rendered HTML output
 - **Styling**: Tailwind CSS v4.2.1 with `@tailwindcss/typography` plugin for prose styling
 - **Layout**: Responsive flexbox layout with `h-screen`, `flex-col` (mobile) and `md:flex-row` (desktop)
-- **State Management**: React `useState` and `useMemo` hooks for markdown parsing memoization
+- **State Management**: React `useState` hook for markdown content and layout mode
 - **Dark Mode**: System preference detection with manual toggle; preference persisted to localStorage
 
 ### Component Architecture
@@ -174,8 +174,6 @@ As a user, I want to toggle between light and dark themes so that I can reduce e
 ### Key Entities _(include if feature involves data)_
 
 - **Document**: The markdown content being edited, consisting of raw markdown text and its rendered HTML representation
-- **Editor State**: Current content, cursor position, and selection state within the editor
-- **Viewport Configuration**: Display mode (split-screen, stacked, or toggle) based on available screen width
 
 ## Success Criteria _(mandatory)_
 

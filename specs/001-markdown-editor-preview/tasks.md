@@ -45,18 +45,12 @@ Single project structure with component-driven architecture:
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
 - [x] T004 [P] Create TypeScript types in `src/types/markdown.ts`:
-  - `MarkdownDocument` interface
-  - `EditorState` interface
-  - `ViewportConfiguration` type
-  - `PreviewOptions` interface
   - `LayoutMode` union type
-- [x] T005 [P] Create `useMarkdown` hook in `src/hooks/useMarkdown.ts`:
-  - Import and configure marked parser
-  - Implement memoized markdown parsing
-  - Export `html`, `isEmpty`, `parse`, `options`, `setOptions`
-- [x] T006 [P] Create DOMPurify type declarations in `src/types/dompurify.d.ts`:
-  - Import DOMPurify types
-  - Export sanitized type for marked output
+  - `PreviewOptions` interface
+  - `EditorProps` interface
+  - `PreviewProps` interface
+  - `LayoutProps` interface
+  - `DEFAULT_PREVIEW_OPTIONS` constant
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -128,19 +122,15 @@ Single project structure with component-driven architecture:
   - `src/components/Preview/Preview.tsx` - main component
   - `src/components/Preview/index.ts` - barrel export
 - [x] T017 [US2] Implement Preview component in `src/components/Preview/Preview.tsx`:
-  - Import marked parser via useMarkdown hook
-  - Render sanitized HTML output
+  - Import and configure marked parser
+  - Render sanitized HTML output with DOMPurify
   - Empty state placeholder support
   - TypeScript props interface
-- [x] T018 [US2] Add HTML sanitization with DOMPurify in `src/components/Preview/Preview.tsx`:
-  - Import DOMPurify
-  - Sanitize marked output before rendering
-  - Treat pasted HTML as plain text (FR-010)
-- [x] T019 [US2] Add accessibility to Preview in `src/components/Preview/Preview.tsx`:
+- [x] T018 [US2] Add accessibility to Preview in `src/components/Preview/Preview.tsx`:
   - `role="region"`
   - `aria-label="Markdown preview"`
   - `aria-live="polite"` for dynamic updates
-- [x] T020 [US2] Update `src/main.tsx` to integrate Editor + Preview with state management:
+- [x] T019 [US2] Update `src/main.tsx` to integrate Editor + Preview with state management:
   - Lift markdown state to App/main
   - Pass state to both Editor and Preview
   - Wire up onChange to update shared state
@@ -192,7 +182,6 @@ Single project structure with component-driven architecture:
 - [x] T028 [US3] Performance validation in `src/main.test.tsx`:
   - Render 10,000 character document
   - Measure frame time during typing (must be <16ms)
-  - Only add `useDeferredValue` if measurements exceed threshold
 
 **Checkpoint**: At this point, User Stories 1, 2, AND 3 should all work independently
 
@@ -240,7 +229,7 @@ Single project structure with component-driven architecture:
 
 > **CONSTITUTION REQUIREMENT**: Test-First principle mandates tests MUST be written and validated to FAIL before implementation begins.
 
-- [x] T034 [P] [US5] Create dark mode toggle test in `src/components/Layout/Layout.test.tsx` with failing tests:
+- [x] T034 [P] [US5] Create dark mode toggle test in `src/components/DarkModeToggle/DarkModeToggle.test.tsx` with failing tests:
   - Displays dark mode toggle button
   - Toggles dark mode when clicked
   - Toggles back to light mode when clicked again
@@ -249,23 +238,26 @@ Single project structure with component-driven architecture:
 
 ### Implementation for User Story 5
 
-- [x] T035 [US5] Add dark mode state management in `src/components/Layout/Layout.tsx`:
+- [x] T035 [US5] Create DarkModeToggle component:
+  - `src/components/DarkModeToggle/DarkModeToggle.tsx` - main component
+  - `src/components/DarkModeToggle/index.ts` - barrel export
+- [x] T036 [US5] Add dark mode state management in `src/components/DarkModeToggle/DarkModeToggle.tsx`:
   - useState for dark mode tracking
   - handleToggleDark function to toggle class and localStorage
-- [x] T036 [US5] Add dark mode toggle button in `src/components/Layout/Layout.tsx`:
+- [x] T037 [US5] Add dark mode toggle button in `src/components/DarkModeToggle/DarkModeToggle.tsx`:
   - Sun/moon icon based on current mode
   - aria-label and aria-pressed for accessibility
   - Visible at all viewport sizes
-- [x] T037 [US5] Add dark mode styling to Editor in `src/components/Editor/Editor.tsx`:
+- [x] T038 [US5] Add dark mode styling to Editor in `src/components/Editor/Editor.tsx`:
   - bg-white/dark:bg-gray-900 for background
   - text-gray-900/dark:text-gray-100 for text
-- [x] T038 [US5] Add dark mode styling to Preview in `src/components/Preview/Preview.tsx`:
+- [x] T039 [US5] Add dark mode styling to Preview in `src/components/Preview/Preview.tsx`:
   - bg-white/dark:bg-gray-800 for background
   - dark:prose-invert for inverted prose colors
-- [x] T039 [US5] Add dark mode initialization in `index.html`:
+- [x] T040 [US5] Add dark mode initialization in `index.html`:
   - Check localStorage and system preference on load
   - Apply dark class to html element
-- [x] T040 [US5] Add dark mode border styling in `src/components/Layout/Layout.tsx`:
+- [x] T041 [US5] Add dark mode border styling in `src/components/Layout/Layout.tsx`:
   - dark:border-gray-700 for pane divider
 
 **Checkpoint**: Dark mode fully functional with persistence
@@ -276,16 +268,16 @@ Single project structure with component-driven architecture:
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [x] T041 [P] Run full test suite: `npm test` - all tests must pass
-- [x] T042 [P] Run type check: `npm run lint:tsc` - no errors
-- [x] T043 [P] Run linter: `npm run lint` - no errors
-- [x] T044 [P] Verify accessibility with browser DevTools
-- [x] T045 [P] Performance test with 10,000 character document
-- [x] T046 [P] Cross-browser testing (Chrome, Firefox, Safari, Edge)
-- [x] T047 [P] Mobile testing (iOS Safari, Android Chrome)
-- [x] T048 Update quickstart.md with actual implementation details
-- [x] T049 Code cleanup and refactoring pass
-- [x] T050 Update README.md with feature documentation
+- [x] T042 [P] Run full test suite: `npm test` - all tests must pass
+- [x] T043 [P] Run type check: `npm run lint:tsc` - no errors
+- [x] T044 [P] Run linter: `npm run lint` - no errors
+- [x] T045 [P] Verify accessibility with browser DevTools
+- [x] T046 [P] Performance test with 10,000 character document
+- [x] T047 [P] Cross-browser testing (Chrome, Firefox, Safari, Edge)
+- [x] T048 [P] Mobile testing (iOS Safari, Android Chrome)
+- [x] T049 Update quickstart.md with actual implementation details
+- [x] T050 Code cleanup and refactoring pass
+- [x] T051 Update README.md with feature documentation
 
 ---
 
@@ -298,7 +290,7 @@ Single project structure with component-driven architecture:
 - **User Stories (Phase 3+)**: All depend on Foundational phase completion
   - User stories can then proceed in parallel (if staffed)
   - Or sequentially in priority order (P1 → P2 → P3)
-- **Polish (Phase 7)**: Depends on all user stories being complete
+- **Polish (Phase 8)**: Depends on all user stories being complete
 
 ### User Story Dependencies
 
@@ -318,35 +310,12 @@ Single project structure with component-driven architecture:
 ### Parallel Opportunities
 
 - **Phase 1**: T002 and T003 can run in parallel
-- **Phase 2**: T004 and T005 can run in parallel (different files)
+- **Phase 2**: T004 can run as a single task
 - **Phase 3**: T007 and T008 (tests) can run in parallel; T009 (structure) can start after tests written
 - **Phase 4**: T014 and T015 (tests) can run in parallel; T016 (structure) can start after tests written
 - **Phase 5**: T021 and T022 (tests) can run in parallel; T023 (structure) can start after tests written
 - **Phase 6**: T029 and T030 (tests) can run in parallel
-- **Phase 7**: All polish tasks can run in parallel
-
----
-
-## Parallel Example: User Story 1
-
-```bash
-# Launch all tests for User Story 1 together:
-Task: "Create Editor component test file src/components/Editor/Editor.test.tsx"
-Task: "Create integration test in src/main.test.tsx"
-
-# After tests written and failing, launch component structure:
-Task: "Create Editor component structure (Editor.tsx, index.ts)"
-```
-
----
-
-## Parallel Example: Foundational Phase
-
-```bash
-# All foundational tasks can run in parallel (different files):
-Task: "Create TypeScript types in src/types/markdown.ts"
-Task: "Create useMarkdown hook in src/hooks/useMarkdown.ts"
-```
+- **Phase 7**: T034 (tests) can run in parallel with other tasks
 
 ---
 
@@ -390,22 +359,22 @@ With multiple developers:
 | Phase     | Description                | Task Count |
 | --------- | -------------------------- | ---------- |
 | Phase 1   | Setup                      | 3          |
-| Phase 2   | Foundational               | 3          |
+| Phase 2   | Foundational               | 1          |
 | Phase 3   | User Story 1 (Editor)      | 6          |
-| Phase 4   | User Story 2 (Preview)     | 7          |
+| Phase 4   | User Story 2 (Preview)     | 6          |
 | Phase 5   | User Story 3 (Layout)      | 8          |
 | Phase 6   | User Story 4 (Empty State) | 5          |
 | Phase 7   | User Story 5 (Dark Mode)   | 7          |
 | Phase 8   | Polish                     | 10         |
-| **Total** |                            | **49**     |
+| **Total** |                            | **46**     |
 
 ### Tasks per User Story
 
 - **US1 (P1)**: T007-T012 (6 tasks) - Editor component
-- **US2 (P1)**: T014-T020 (7 tasks) - Preview component
+- **US2 (P1)**: T014-T019 (6 tasks) - Preview component
 - **US3 (P2)**: T021-T028 (8 tasks) - Layout component
 - **US4 (P3)**: T029-T033 (5 tasks) - Empty state
-- **US5 (P2)**: T034-T040 (7 tasks) - Dark mode support
+- **US5 (P2)**: T034-T041 (8 tasks) - Dark mode support
 
 ### Independent Test Criteria
 

@@ -10,82 +10,12 @@ This document defines the TypeScript interfaces and types for the markdown edito
 
 ## Core Types
 
-### MarkdownDocument
-
-Represents the markdown content being edited.
-
-```typescript
-interface MarkdownDocument {
-  /** Raw markdown text input by the user */
-  raw: string;
-  /** Rendered HTML output from markdown parser */
-  rendered: string;
-  /** Timestamp of last edit (for potential future features) */
-  lastModified?: number;
-}
-```
-
-**Validation Rules**:
-
-- `raw`: Any UTF-8 string, max 10,000+ characters (performance tested)
-- `rendered`: Sanitized HTML string (DOMPurify output)
-- `lastModified`: Unix timestamp (optional, for future auto-save)
-
----
-
-### EditorState
-
-Tracks the current state of the editor component.
-
-```typescript
-interface EditorState {
-  /** Current markdown content */
-  content: string;
-  /** Cursor/caret position in editor */
-  cursorPosition: {
-    line: number;
-    column: number;
-    offset: number;
-  };
-  /** Text selection range (if any) */
-  selection: {
-    start: number;
-    end: number;
-  } | null;
-  /** Whether editor is currently focused */
-  isFocused: boolean;
-  /** Whether content has been modified since load */
-  isDirty: boolean;
-}
-```
-
-**State Transitions**:
-
-```
-Initial → Focused → Typing → Dirty
-   ↓         ↓          ↓
-Empty   Unfocused   Unchanged
-```
-
----
-
-### ViewportConfiguration
+### LayoutMode
 
 Defines the layout mode based on available screen width.
 
 ```typescript
 type LayoutMode = 'split' | 'editor-only' | 'preview-only';
-
-interface ViewportConfiguration {
-  /** Current layout mode */
-  mode: LayoutMode;
-  /** Viewport width in pixels */
-  viewportWidth: number;
-  /** Viewport height in pixels */
-  viewportHeight: number;
-  /** Breakpoint for mobile layout (default: 768px) */
-  mobileBreakpoint: number;
-}
 ```
 
 **Derived Values**:
@@ -137,12 +67,8 @@ interface EditorProps {
   value: string;
   /** Callback when content changes */
   onChange: (value: string) => void;
-  /** Callback when cursor position changes */
-  onCursorChange?: (position: EditorState['cursorPosition']) => void;
   /** Placeholder text when empty */
   placeholder?: string;
-  /** Whether editor is disabled */
-  disabled?: boolean;
 }
 ```
 
@@ -167,33 +93,12 @@ interface PreviewProps {
 
 ```typescript
 interface LayoutProps {
-  /** Editor component */
+  /** Editor and Preview components */
   children: React.ReactNode;
   /** Current layout mode */
   mode: LayoutMode;
   /** Callback to toggle view mode (mobile) */
   onToggleView?: () => void;
-}
-```
-
----
-
-## Custom Hook Types
-
-### UseMarkdownReturn
-
-```typescript
-interface UseMarkdownReturn {
-  /** Parsed HTML from markdown */
-  html: string;
-  /** Whether content is empty */
-  isEmpty: boolean;
-  /** Parse markdown manually (for testing) */
-  parse: (markdown: string) => string;
-  /** Current parsing options */
-  options: PreviewOptions;
-  /** Update parsing options */
-  setOptions: (options: Partial<PreviewOptions>) => void;
 }
 ```
 
@@ -205,8 +110,6 @@ interface UseMarkdownReturn {
 
 ```typescript
 type EditorChangeEvent = React.ChangeEvent<HTMLTextAreaElement>;
-type EditorFocusEvent = React.FocusEvent<HTMLTextAreaElement>;
-type EditorKeyboardEvent = React.KeyboardEvent<HTMLTextAreaElement>;
 ```
 
 ### Layout Events
@@ -224,11 +127,11 @@ type ToggleViewEvent = React.MouseEvent<HTMLButtonElement>;
 
 | Requirement                 | Type/Interface                    | Validation                   |
 | --------------------------- | --------------------------------- | ---------------------------- |
-| FR-001 (Edit markdown)      | `EditorState.content`             | String, non-null             |
-| FR-002 (Render HTML)        | `MarkdownDocument.rendered`       | Sanitized HTML string        |
-| FR-003 (Live preview)       | `UseMarkdownReturn.html`          | Updates on every keystroke   |
+| FR-001 (Edit markdown)      | `EditorProps.value`               | String, non-null             |
+| FR-002 (Render HTML)        | `PreviewProps.markdown`           | Sanitized HTML string        |
+| FR-003 (Live preview)       | N/A                               | Updates on every keystroke   |
 | FR-004 (Markdown syntax)    | `PreviewOptions.gfm`              | GFM enabled                  |
-| FR-005 (Split layout)       | `ViewportConfiguration.mode`      | 'split' when width >= 768px  |
+| FR-005 (Split layout)       | `LayoutProps.mode`                | 'split' when width >= 768px  |
 | FR-006 (Independent scroll) | CSS (not typed)                   | `overflow: auto` on panes    |
 | FR-007 (Mobile toggle)      | `LayoutProps.onToggleView`        | Callback for toggle          |
 | FR-008 (Empty state)        | `PreviewOptions.emptyPlaceholder` | HTML string shown when empty |
@@ -244,27 +147,3 @@ type ToggleViewEvent = React.MouseEvent<HTMLButtonElement>;
 - Use `unknown` for caught errors, then narrow with type guards
 - Event types use React's typed event system
 - Props interfaces use `Partial<T>` for optional configuration
-
----
-
-## Future Extensions (Not Implemented)
-
-These types are defined for potential future features but not currently used:
-
-```typescript
-// For auto-save functionality
-interface DocumentMetadata {
-  id: string;
-  createdAt: number;
-  updatedAt: number;
-  version: number;
-}
-
-// For collaborative editing
-interface CursorState {
-  userId: string;
-  userName: string;
-  color: string;
-  position: EditorState['cursorPosition'];
-}
-```
