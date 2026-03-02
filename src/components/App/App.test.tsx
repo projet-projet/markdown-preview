@@ -2,7 +2,7 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { DEFAULT_MARKDOWN } from 'src/constants';
 
-import App from '.';
+import { App } from '.';
 
 describe('App component', () => {
   const originalInnerWidth = window.innerWidth;

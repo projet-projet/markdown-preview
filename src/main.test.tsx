@@ -7,7 +7,7 @@ import {
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import App from './components/App';
+import { App } from './components/App';
 
 // Mock the root element for main.tsx tests
 const mockRoot = document.createElement('div');

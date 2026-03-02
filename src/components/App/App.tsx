@@ -8,7 +8,7 @@ import { Preview } from '../Preview';
 
 const MOBILE_BREAKPOINT = 768;
 
-export default function App() {
+export function App() {
   const [markdown, setMarkdown] = useState(DEFAULT_MARKDOWN);
   const [mode, setMode] = useState<LayoutMode>('split');
   const modeRef = useRef(mode);
