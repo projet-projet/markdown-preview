@@ -3,6 +3,7 @@ import type { LayoutProps } from 'src/types/markdown';
 
 import { DarkModeToggle } from '../DarkModeToggle';
 import { GitHubButton } from '../GitHubButton';
+import { ViewToggle } from '../ViewToggle';
 
 /**
  * Layout component for responsive editor/preview arrangement.
@@ -12,8 +13,6 @@ export function Layout({ children, mode, onToggleView }: LayoutProps) {
   const isEditorOnly = mode === 'editor-only';
   const isPreviewOnly = mode === 'preview-only';
   const isSplit = mode === 'split';
-
-  const toggleLabel = isEditorOnly ? 'Preview' : 'Editor';
 
   // Convert children to array for selective rendering
   const childrenArray = Array.isArray(children) ? children : [children];
@@ -30,14 +29,7 @@ export function Layout({ children, mode, onToggleView }: LayoutProps) {
         <div className="flex items-center gap-2">
           <GitHubButton />
           <DarkModeToggle />
-          <button
-            type="button"
-            onClick={onToggleView}
-            aria-pressed={isEditorOnly ? 'false' : 'true'}
-            className="rounded bg-blue-500 px-4 py-2 text-sm text-white hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:outline-none md:hidden"
-          >
-            {toggleLabel}
-          </button>
+          {onToggleView && <ViewToggle mode={mode} onToggle={onToggleView} />}
         </div>
       </header>
 

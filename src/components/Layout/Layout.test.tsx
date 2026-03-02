@@ -69,7 +69,7 @@ describe('Layout Component', () => {
 
     it('toggle button has correct aria-pressed state', () => {
       render(
-        <Layout mode="editor-only">
+        <Layout mode="editor-only" onToggleView={vi.fn()}>
           <TestChildren />
         </Layout>,
       );
@@ -82,7 +82,7 @@ describe('Layout Component', () => {
 
     it('toggle shows correct label based on mode', () => {
       const { rerender } = render(
-        <Layout mode="editor-only">
+        <Layout mode="editor-only" onToggleView={vi.fn()}>
           <TestChildren />
         </Layout>,
       );
@@ -91,7 +91,7 @@ describe('Layout Component', () => {
       expect(toggleButton).toBeInTheDocument();
 
       rerender(
-        <Layout mode="preview-only">
+        <Layout mode="preview-only" onToggleView={vi.fn()}>
           <TestChildren />
         </Layout>,
       );
