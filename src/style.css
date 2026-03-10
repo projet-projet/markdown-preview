@@ -18,6 +18,18 @@
   content: normal;
 }
 
+/* Remove default margins from lists in markdown preview */
+.prose
+  :where(ul, ol):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.prose :where(li):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 /* Style inline code in markdown preview */
 .prose
   :where(:not(pre) > code):not(
