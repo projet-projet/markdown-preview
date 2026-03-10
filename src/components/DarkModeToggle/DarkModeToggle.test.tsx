@@ -74,19 +74,30 @@ describe('DarkModeToggle', () => {
     await user.click(button);
 
     expect(screen.getByText('🖥️')).toBeInTheDocument();
-    expect(localStorage.theme).toBe('system');
+    expect(localStorage.theme).toBeUndefined();
   });
 
   it('cycles from system to light mode when clicked', async () => {
     const user = userEvent.setup();
-    localStorage.theme = 'system';
     render(<DarkModeToggle />);
 
-    const button = screen.getByRole('button', {
+    // First click to go to dark mode
+    const darkButton = screen.getByRole('button', {
+      name: /switch to dark mode/i,
+    });
+    await user.click(darkButton);
+
+    // Second click to go to system mode
+    const systemButton = screen.getByRole('button', {
+      name: /switch to system mode/i,
+    });
+    await user.click(systemButton);
+
+    // Third click to go back to light mode
+    const lightButton = screen.getByRole('button', {
       name: /switch to light mode/i,
     });
-
-    await user.click(button);
+    await user.click(lightButton);
 
     expect(screen.getByText('☀️')).toBeInTheDocument();
     expect(localStorage.theme).toBe('light');
@@ -114,7 +125,7 @@ describe('DarkModeToggle', () => {
     await user.click(button);
 
     expect(document.documentElement.classList.contains('dark')).toBe(true);
-    expect(localStorage.theme).toBe('system');
+    expect(localStorage.theme).toBeUndefined();
   });
 
   it('removes dark class when switching to system mode and system prefers light', async () => {
@@ -139,14 +150,7 @@ describe('DarkModeToggle', () => {
     await user.click(button);
 
     expect(document.documentElement.classList.contains('dark')).toBe(false);
-    expect(localStorage.theme).toBe('system');
-  });
-
-  it('initializes with system mode from localStorage', () => {
-    localStorage.theme = 'system';
-    render(<DarkModeToggle />);
-
-    expect(screen.getByText('🖥️')).toBeInTheDocument();
+    expect(localStorage.theme).toBeUndefined();
   });
 
   it('initializes with light mode from localStorage', () => {

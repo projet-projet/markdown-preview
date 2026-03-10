@@ -40,19 +40,22 @@ export function DarkModeToggle() {
     const nextTheme = THEME_ORDER[(currentIndex + 1) % THEME_ORDER.length];
 
     setTheme(nextTheme);
-    localStorage.theme = nextTheme;
 
     if (nextTheme === 'system') {
+      delete localStorage.theme;
       const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       if (isDark) {
         document.documentElement.classList.add('dark');
       } else {
         document.documentElement.classList.remove('dark');
       }
-    } else if (nextTheme === 'dark') {
-      document.documentElement.classList.add('dark');
     } else {
-      document.documentElement.classList.remove('dark');
+      localStorage.theme = nextTheme;
+      if (nextTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
     }
   };
 
