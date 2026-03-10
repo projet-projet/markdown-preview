@@ -36,7 +36,7 @@ description: 'Task list for querystring persistence feature implementation'
 
 **Purpose**: Install dependencies and create type definitions needed by all user stories
 
-- [ ] T001 Install lz-string@1.5.0 dependency via npm
+- [x] T001 Install lz-string@1.5.0 dependency via npm
 - [ ] T002 [P] Create type definitions in src/types/urlPersistence.types.ts
 - [ ] T003 [P] Add URL persistence constants to src/constants/index.ts
 
