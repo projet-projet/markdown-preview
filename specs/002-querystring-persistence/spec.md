@@ -10,6 +10,7 @@
 ### Session 2026-03-10
 
 - Q: What querystring parameter name should be used for storing markdown content? → A: Use short semantic name `md`
+- Q: What debounce delay duration should be used for URL updates? → A: 500ms delay balancing responsiveness and performance
 
 ## Constitution Alignment
 
@@ -92,7 +93,7 @@ A user edits markdown content and the URL automatically updates in realtime to r
 - **FR-005**: System MUST handle empty or missing querystring parameters gracefully by showing empty/default content
 - **FR-006**: System MUST preserve all markdown formatting, including special characters and Unicode, through encode/decode cycle
 - **FR-007**: System MUST automatically update the URL in realtime as the user types or edits markdown content
-- **FR-007a**: System MUST debounce URL updates to avoid excessive updates while user is actively typing
+- **FR-007a**: System MUST debounce URL updates with a 500ms delay to avoid excessive updates while user is actively typing
 - **FR-008**: System MUST compress markdown content before encoding to URL to maximize capacity within browser URL length limits
 - **FR-009**: System MUST handle malformed querystring data by silently falling back to empty content without showing error messages
 
