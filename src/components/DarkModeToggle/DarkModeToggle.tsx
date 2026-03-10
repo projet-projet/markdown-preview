@@ -5,7 +5,7 @@ type ThemeMode = 'light' | 'dark' | 'system';
 const THEME_ICON: Record<ThemeMode, string> = {
   light: '☀️',
   dark: '🌙',
-  system: '💻',
+  system: '🖥️',
 };
 
 const THEME_LABEL: Record<ThemeMode, string> = {

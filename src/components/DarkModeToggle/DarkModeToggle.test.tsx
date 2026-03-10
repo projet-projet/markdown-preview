@@ -73,7 +73,7 @@ describe('DarkModeToggle', () => {
 
     await user.click(button);
 
-    expect(screen.getByText('💻')).toBeInTheDocument();
+    expect(screen.getByText('🖥️')).toBeInTheDocument();
     expect(localStorage.theme).toBe('system');
   });
 
@@ -146,7 +146,7 @@ describe('DarkModeToggle', () => {
     localStorage.theme = 'system';
     render(<DarkModeToggle />);
 
-    expect(screen.getByText('💻')).toBeInTheDocument();
+    expect(screen.getByText('🖥️')).toBeInTheDocument();
   });
 
   it('initializes with light mode from localStorage', () => {

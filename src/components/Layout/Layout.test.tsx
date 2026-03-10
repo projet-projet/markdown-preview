@@ -277,7 +277,7 @@ describe('Layout Component', () => {
       );
 
       const darkModeButton = screen.getByRole('button');
-      expect(darkModeButton).toHaveTextContent('💻');
+      expect(darkModeButton).toHaveTextContent('🖥️');
     });
 
     it('has correct aria-pressed state', () => {
