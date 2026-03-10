@@ -12,6 +12,7 @@
 - Q: What querystring parameter name should be used for storing markdown content? → A: Use short semantic name `md`
 - Q: What debounce delay duration should be used for URL updates? → A: 500ms delay balancing responsiveness and performance
 - Q: What compression algorithm should be used for markdown content? → A: LZ-string library for JavaScript string compression with URL-safe output
+- Q: What should happen when content exceeds URL length limits after compression? → A: Log console.warn and continue to update URL
 
 ## Constitution Alignment
 
@@ -77,7 +78,7 @@ A user edits markdown content and the URL automatically updates in realtime to r
 
 ### Edge Cases
 
-- What happens when the markdown content exceeds URL length limits (typically 2048 characters for some browsers)?
+- What happens when the markdown content exceeds URL length limits (typically 2048 characters for some browsers)? → Log console.warn and continue URL update
 - How does the system handle special characters and Unicode in markdown content?
 - What happens when the URL contains malformed or corrupted encoded data?
 - How does the system handle empty querystring parameters?
@@ -96,6 +97,7 @@ A user edits markdown content and the URL automatically updates in realtime to r
 - **FR-007**: System MUST automatically update the URL in realtime as the user types or edits markdown content
 - **FR-007a**: System MUST debounce URL updates with a 500ms delay to avoid excessive updates while user is actively typing
 - **FR-008**: System MUST compress markdown content using LZ-string algorithm before encoding to URL to maximize capacity within browser URL length limits
+- **FR-008a**: System MUST log a console warning when compressed content exceeds URL length limits but continue to update the URL
 - **FR-009**: System MUST handle malformed querystring data by silently falling back to empty content without showing error messages
 
 ### Key Entities
