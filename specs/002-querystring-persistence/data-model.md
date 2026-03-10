@@ -171,24 +171,6 @@ export interface UrlEncoder {
 }
 ```
 
-### Error Types
-
-```typescript
-/**
- * Custom error for URL persistence operations
- */
-export class UrlPersistenceError extends Error {
-  constructor(
-    message: string,
-    public readonly operation: 'encode' | 'decode' | 'sync',
-    public readonly originalError?: Error,
-  ) {
-    super(message);
-    this.name = 'UrlPersistenceError';
-  }
-}
-```
-
 ## Data Flow
 
 ### Initial Page Load

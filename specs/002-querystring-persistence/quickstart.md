@@ -65,17 +65,6 @@ export interface UrlLengthCheck {
   maxLength: number;
   percentUsed: number;
 }
-
-export class UrlPersistenceError extends Error {
-  constructor(
-    message: string,
-    public readonly operation: 'encode' | 'decode' | 'sync',
-    public readonly originalError?: Error,
-  ) {
-    super(message);
-    this.name = 'UrlPersistenceError';
-  }
-}
 ```
 
 **Verify**:

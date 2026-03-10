@@ -145,47 +145,6 @@ const paramKey: UrlParamKey = 'markdown'; // ❌ Type error
 
 ---
 
-### Error Types
-
-#### `UrlPersistenceError`
-
-Custom error class for URL persistence operations.
-
-```typescript
-export class UrlPersistenceError extends Error {
-  constructor(
-    message: string,
-    public readonly operation: 'encode' | 'decode' | 'sync',
-    public readonly originalError?: Error,
-  ) {
-    super(message);
-    this.name = 'UrlPersistenceError';
-  }
-}
-```
-
-**Properties**:
-
-- **`message`**: Error description
-- **`operation`**: Which operation failed ('encode' | 'decode' | 'sync')
-- **`originalError`**: Optional underlying error that caused the failure
-
-**Usage**:
-
-```typescript
-try {
-  // ... encode operation
-} catch (err) {
-  throw new UrlPersistenceError(
-    'Failed to encode markdown',
-    'encode',
-    err as Error,
-  );
-}
-```
-
----
-
 ## Internal Types (Not Exported)
 
 These types are used internally but not part of the public API:
