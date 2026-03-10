@@ -5,6 +5,12 @@
 **Status**: Draft
 **Input**: User description: "save/load markdown in querystring"
 
+## Clarifications
+
+### Session 2026-03-10
+
+- Q: What querystring parameter name should be used for storing markdown content? → A: Use short semantic name `md`
+
 ## Constitution Alignment
 
 Verify this feature adheres to project principles:
@@ -79,8 +85,8 @@ A user edits markdown content and the URL automatically updates in realtime to r
 
 ### Functional Requirements
 
-- **FR-001**: System MUST encode markdown content into a URL-safe format when saving to querystring
-- **FR-002**: System MUST decode markdown content from querystring when loading the page
+- **FR-001**: System MUST encode markdown content into a URL-safe format and store it in the `md` querystring parameter
+- **FR-002**: System MUST decode markdown content from the `md` querystring parameter when loading the page
 - **FR-003**: System MUST update the browser URL using replaceState (not pushState) to avoid creating browser history entries for each edit
 - **FR-004**: System MUST load markdown from querystring on initial page load
 - **FR-005**: System MUST handle empty or missing querystring parameters gracefully by showing empty/default content
