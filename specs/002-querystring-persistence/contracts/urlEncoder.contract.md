@@ -188,47 +188,6 @@ if (check.exceedsLimit) {
 }
 ```
 
----
-
-### `roundTripTest`
-
-Utility for testing encode/decode fidelity (primarily for tests).
-
-#### Signature
-
-```typescript
-function roundTripTest(markdown: string): boolean;
-```
-
-#### Parameters
-
-- **`markdown`**: `string` - Markdown to test
-
-#### Return Value
-
-- **`boolean`**: `true` if `decode(encode(markdown)) === markdown`, `false` otherwise
-
-#### Purpose
-
-Verify that encoding and decoding preserves content exactly (100% fidelity).
-
-#### Example
-
-```typescript
-import { roundTripTest } from 'src/utils/urlEncoder';
-
-const testCases = [
-  '# Simple',
-  'Unicode: 你好 🎉',
-  'Special: <>&"\'',
-  'Whitespace:\n\n\t  ',
-];
-
-testCases.forEach((test) => {
-  expect(roundTripTest(test)).toBe(true);
-});
-```
-
 ## Type Definitions
 
 ### Core Types
@@ -437,7 +396,7 @@ describe('urlEncoder', () => {
 
 ## Dependencies
 
-- **lz-string**: ^1.5.0
+- **lz-string**: 1.5.0
   - `compressToEncodedURIComponent()`
   - `decompressFromEncodedURIComponent()`
 
