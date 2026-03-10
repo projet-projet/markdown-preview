@@ -14,6 +14,7 @@
 - Q: What compression algorithm should be used for markdown content? → A: LZ-string library for JavaScript string compression with URL-safe output
 - Q: What should happen when content exceeds URL length limits after compression? → A: Log console.warn and continue to update URL
 - Q: What performance target should encode/decode operations meet? → A: Complete under 100ms for imperceptible delays
+- Q: What content should be shown when querystring is empty or corrupt? → A: Show default markdown placeholder with example syntax
 
 ## Constitution Alignment
 
@@ -57,7 +58,7 @@ A user receives a URL containing markdown content and wants to view and edit it 
 
 1. **Given** user opens a URL with markdown in the querystring, **When** the page loads, **Then** the editor displays the decoded markdown content
 2. **Given** user has loaded markdown from URL, **When** user edits the content, **Then** the changes are reflected in both the editor and the URL automatically
-3. **Given** user opens a URL without markdown in the querystring, **When** the page loads, **Then** the editor displays empty or default content
+3. **Given** user opens a URL without markdown in the querystring, **When** the page loads, **Then** the editor displays default markdown placeholder content
 
 ---
 
@@ -93,17 +94,18 @@ A user edits markdown content and the URL automatically updates in realtime to r
 - **FR-002**: System MUST decode markdown content from the `md` querystring parameter when loading the page
 - **FR-003**: System MUST update the browser URL using replaceState (not pushState) to avoid creating browser history entries for each edit
 - **FR-004**: System MUST load markdown from querystring on initial page load
-- **FR-005**: System MUST handle empty or missing querystring parameters gracefully by showing empty/default content
+- **FR-005**: System MUST handle empty or missing querystring parameters gracefully by showing default markdown placeholder content
 - **FR-006**: System MUST preserve all markdown formatting, including special characters and Unicode, through encode/decode cycle
 - **FR-007**: System MUST automatically update the URL in realtime as the user types or edits markdown content
 - **FR-007a**: System MUST debounce URL updates with a 500ms delay to avoid excessive updates while user is actively typing
 - **FR-008**: System MUST compress markdown content using LZ-string algorithm before encoding to URL to maximize capacity within browser URL length limits
 - **FR-008a**: System MUST log a console warning when compressed content exceeds URL length limits but continue to update the URL
-- **FR-009**: System MUST handle malformed querystring data by silently falling back to empty content without showing error messages
+- **FR-009**: System MUST handle malformed querystring data by silently falling back to default markdown placeholder content without showing error messages
 
 ### Key Entities
 
 - **Markdown Content**: The raw markdown text entered by the user, including all formatting, special characters, and Unicode
+- **Default Markdown Placeholder**: Example markdown content showing supported syntax (headings, lists, links, code blocks, etc.) displayed when no querystring parameter is present or data is corrupt
 - **Encoded URL Parameter**: The URL-safe encoded representation of markdown content stored in the querystring
 - **Browser URL State**: The current browser location including the querystring parameter containing markdown
 
