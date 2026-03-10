@@ -213,28 +213,6 @@ function MarkdownEditor() {
 }
 ```
 
-### Detecting Shared Content
-
-```typescript
-function MarkdownEditor() {
-  const { markdown, setMarkdown, loadedFromUrl } = useUrlPersistence();
-
-  useEffect(() => {
-    if (loadedFromUrl) {
-      // Track analytics event
-      analytics.track('shared_content_opened');
-    }
-  }, [loadedFromUrl]);
-
-  return (
-    <textarea
-      value={markdown}
-      onChange={(e) => setMarkdown(e.target.value)}
-    />
-  );
-}
-```
-
 ## Testing Contract
 
 ### Required Tests
