@@ -2,7 +2,7 @@
 
 **Feature Branch**: `002-querystring-persistence`
 **Created**: 2026-03-10
-**Status**: Draft
+**Status**: Ready
 **Input**: User description: "save/load markdown in querystring"
 
 ## Clarifications
@@ -13,6 +13,7 @@
 - Q: What debounce delay duration should be used for URL updates? → A: 500ms delay balancing responsiveness and performance
 - Q: What compression algorithm should be used for markdown content? → A: LZ-string library for JavaScript string compression with URL-safe output
 - Q: What should happen when content exceeds URL length limits after compression? → A: Log console.warn and continue to update URL
+- Q: What performance target should encode/decode operations meet? → A: Complete under 100ms for imperceptible delays
 
 ## Constitution Alignment
 
@@ -114,3 +115,4 @@ A user edits markdown content and the URL automatically updates in realtime to r
 - **SC-002**: System successfully encodes and decodes markdown content with 100% fidelity (no data loss or corruption)
 - **SC-003**: Users can save markdown to URL and reload the page to see the same content without any manual copy/paste actions
 - **SC-004**: System handles markdown content up to the browser's URL length limit without errors or data loss
+- **SC-005**: Encode and decode operations complete in under 100ms for imperceptible user experience delays
