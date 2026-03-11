@@ -54,7 +54,6 @@ type EncodeResult =
 
 #### Performance
 
-- **Target**: <100ms for all inputs
 - **Typical**: 5-40ms for content up to 10KB
 - **Scaling**: Linear with input size
 
@@ -117,7 +116,6 @@ type DecodeResult =
 
 #### Performance
 
-- **Target**: <100ms for all inputs
 - **Typical**: 3-30ms for content up to 10KB
 - **Scaling**: Linear with input size
 
@@ -223,9 +221,6 @@ export interface UrlLengthCheck {
 ```typescript
 /** Maximum URL length before warning (conservative) */
 export const MAX_URL_LENGTH = 2048;
-
-/** Performance target for encode/decode operations (ms) */
-export const PERFORMANCE_TARGET_MS = 100;
 ```
 
 ## Error Handling
@@ -258,21 +253,21 @@ All functions use Result types instead of throwing exceptions. This ensures:
 
 ### Encode Performance
 
-| Input Size | Target | Typical |
-| ---------- | ------ | ------- |
-| 1KB        | <100ms | ~5ms    |
-| 5KB        | <100ms | ~20ms   |
-| 10KB       | <100ms | ~40ms   |
-| 20KB       | <100ms | ~80ms   |
+| Input Size | Typical |
+| ---------- | ------- |
+| 1KB        | ~5ms    |
+| 5KB        | ~20ms   |
+| 10KB       | ~40ms   |
+| 20KB       | ~80ms   |
 
 ### Decode Performance
 
-| Input Size | Target | Typical |
-| ---------- | ------ | ------- |
-| 1KB        | <100ms | ~3ms    |
-| 5KB        | <100ms | ~15ms   |
-| 10KB       | <100ms | ~30ms   |
-| 20KB       | <100ms | ~60ms   |
+| Input Size | Typical |
+| ---------- | ------- |
+| 1KB        | ~3ms    |
+| 5KB        | ~15ms   |
+| 10KB       | ~30ms   |
+| 20KB       | ~60ms   |
 
 ### Memory Usage
 

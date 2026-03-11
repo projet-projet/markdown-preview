@@ -36,9 +36,6 @@ export const MAX_URL_LENGTH = 2048;
 
 /** Debounce delay for URL updates (milliseconds) */
 export const URL_UPDATE_DEBOUNCE_MS = 500;
-
-/** Performance target for encode/decode operations (milliseconds) */
-export const PERFORMANCE_TARGET_MS = 100;
 ```
 
 ### Default Content
@@ -149,14 +146,14 @@ export interface UrlLengthCheck {
 
 - **Input**: Any string (including empty)
 - **Output**: URL-safe string or error
-- **Performance**: Must complete in <100ms
+- **Performance**: Should complete quickly (typically <100ms)
 - **Fidelity**: `decode(encode(x)) === x` for all valid inputs
 
 ### Decode Operation
 
 - **Input**: URL-safe string from querystring
 - **Output**: Original markdown or null (for corrupt data)
-- **Performance**: Must complete in <100ms
+- **Performance**: Should complete quickly (typically <100ms)
 - **Error Handling**: Silent fallback to DEFAULT_MARKDOWN (no user-visible errors)
 
 ### URL Update Operation
@@ -181,10 +178,9 @@ Implementation details are in `quickstart.md`.
 
 ### Encoding Performance
 
-- **Target**: <100ms for all operations
 - **Typical**: 5-40ms for content up to 10KB
 - **Bottleneck**: LZ-string compression (already optimized)
-- **Monitoring**: Performance tests verify target compliance
+- **Monitoring**: Performance tests verify compliance
 
 ### Debounce Strategy
 
@@ -219,7 +215,7 @@ Implementation details are in `quickstart.md`.
 
 - ✅ Encode/decode round-trip fidelity (100% data preservation)
 - ✅ Special character handling (Unicode, emojis, markdown syntax)
-- ✅ Performance benchmarks (<100ms target)
+- ✅ Performance benchmarks (typically <100ms)
 - ✅ Edge cases (empty string, very large content, malformed data)
 - ✅ Error handling (corrupt data returns null)
 

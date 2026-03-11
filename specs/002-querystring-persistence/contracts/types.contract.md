@@ -140,9 +140,6 @@ export const MAX_URL_LENGTH: number = 2048;
 /** Debounce delay for URL updates (milliseconds) */
 export const URL_UPDATE_DEBOUNCE_MS: number = 500;
 
-/** Performance target for encode/decode operations (milliseconds) */
-export const PERFORMANCE_TARGET_MS: number = 100;
-
 /** Default markdown shown when URL is empty or corrupt */
 export const DEFAULT_MARKDOWN: string = `# Welcome to Markdown Preview
 

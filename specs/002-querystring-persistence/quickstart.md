@@ -84,7 +84,6 @@ npm run lint:tsc
 export const URL_PARAM_KEY = 'md' as const;
 export const MAX_URL_LENGTH = 2048;
 export const URL_UPDATE_DEBOUNCE_MS = 500;
-export const PERFORMANCE_TARGET_MS = 100;
 
 export const DEFAULT_MARKDOWN = `# Welcome to Markdown Preview
 
