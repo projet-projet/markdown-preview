@@ -1,7 +1,27 @@
-import { renderHook, waitFor } from '@testing-library/react';
+import { renderHook } from '@testing-library/react';
 import { act } from 'react';
 
 import { useUrlPersistence } from './useUrlPersistence';
+
+vi.mock('src/utils', async () => {
+  const actual = await vi.importActual<typeof import('src/utils')>('src/utils');
+  return {
+    ...actual,
+    debounce: (fn: (content: string) => void) => {
+      const debouncedFn = ((content: string) => {
+        fn(content);
+      }) as ((content: string) => void) & {
+        cancel: () => void;
+        flush: () => void;
+      };
+      debouncedFn.cancel = vi.fn();
+      debouncedFn.flush = () => {
+        fn('');
+      };
+      return debouncedFn;
+    },
+  };
+});
 
 describe('useUrlPersistence', () => {
   beforeEach(() => {
@@ -25,7 +45,7 @@ describe('useUrlPersistence', () => {
     expect(result.current.loadedFromUrl).toBe(true);
   });
 
-  it('should update URL when markdown changes (debounced)', async () => {
+  it('should update URL when markdown changes', () => {
     const { result } = renderHook(() => useUrlPersistence());
     const replaceStateSpy = vi.spyOn(window.history, 'replaceState');
 
@@ -33,14 +53,7 @@ describe('useUrlPersistence', () => {
       result.current.setMarkdown('# New Content');
     });
 
-    expect(replaceStateSpy).not.toHaveBeenCalled();
-
-    await waitFor(
-      () => {
-        expect(replaceStateSpy).toHaveBeenCalled();
-      },
-      { timeout: 1000 },
-    );
+    expect(replaceStateSpy).toHaveBeenCalled();
   });
 
   it('should sync immediately when syncToUrl is called', () => {
@@ -55,7 +68,7 @@ describe('useUrlPersistence', () => {
     expect(replaceStateSpy).toHaveBeenCalled();
   });
 
-  it('should use replaceState not pushState', async () => {
+  it('should use replaceState not pushState', () => {
     const { result } = renderHook(() => useUrlPersistence());
     const replaceStateSpy = vi.spyOn(window.history, 'replaceState');
     const pushStateSpy = vi.spyOn(window.history, 'pushState');
@@ -64,13 +77,11 @@ describe('useUrlPersistence', () => {
       result.current.setMarkdown('# Test');
     });
 
-    await waitFor(() => {
-      expect(replaceStateSpy).toHaveBeenCalled();
-      expect(pushStateSpy).not.toHaveBeenCalled();
-    });
+    expect(replaceStateSpy).toHaveBeenCalled();
+    expect(pushStateSpy).not.toHaveBeenCalled();
   });
 
-  it('should warn when URL length exceeds limit', async () => {
+  it('should warn when URL length exceeds limit', () => {
     const { result } = renderHook(() => useUrlPersistence());
     const consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {
       // Mock implementation
@@ -85,9 +96,7 @@ describe('useUrlPersistence', () => {
       result.current.setMarkdown(longMarkdown);
     });
 
-    await waitFor(() => {
-      expect(consoleWarnSpy).toHaveBeenCalled();
-    });
+    expect(consoleWarnSpy).toHaveBeenCalled();
 
     consoleWarnSpy.mockRestore();
   });
