@@ -37,8 +37,8 @@ description: 'Task list for querystring persistence feature implementation'
 **Purpose**: Install dependencies and create type definitions needed by all user stories
 
 - [x] T001 Install lz-string@1.5.0 dependency via npm
-- [ ] T002 [P] Create type definitions in src/types/urlPersistence.types.ts
-- [ ] T003 [P] Add URL persistence constants to src/constants/index.ts
+- [x] T002 [P] Create type definitions in src/types/urlPersistence.types.ts
+- [x] T003 [P] Add URL persistence constants to src/constants/index.ts
 
 ---
 
@@ -50,19 +50,19 @@ description: 'Task list for querystring persistence feature implementation'
 
 ### Tests for URL Encoder (TDD - Red Phase)
 
-- [ ] T004 [P] Create urlEncoder unit tests in src/utils/urlEncoder.test.ts
-- [ ] T005 Verify urlEncoder tests fail (red phase validation)
+- [x] T004 [P] Create urlEncoder unit tests in src/utils/urlEncoder.test.ts
+- [x] T005 Verify urlEncoder tests fail (red phase validation)
 
 ### Implementation for URL Encoder (TDD - Green Phase)
 
-- [ ] T006 Implement encodeMarkdown function in src/utils/urlEncoder.ts
-- [ ] T007 Implement decodeMarkdown function in src/utils/urlEncoder.ts
-- [ ] T008 Implement checkUrlLength function in src/utils/urlEncoder.ts
-- [ ] T009 Verify urlEncoder tests pass with 100% coverage
+- [x] T006 Implement encodeMarkdown function in src/utils/urlEncoder.ts
+- [x] T007 Implement decodeMarkdown function in src/utils/urlEncoder.ts
+- [x] T008 Implement checkUrlLength function in src/utils/urlEncoder.ts
+- [x] T009 Verify urlEncoder tests pass with 100% coverage
 
 ### Barrel Exports
 
-- [ ] T010 Create barrel export in src/utils/index.ts
+- [x] T010 Create barrel export in src/utils/index.ts
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -76,23 +76,23 @@ description: 'Task list for querystring persistence feature implementation'
 
 ### Tests for User Story 1 (TDD - Red Phase)
 
-- [ ] T011 [P] [US1] Create useUrlPersistence hook tests in src/hooks/useUrlPersistence.test.tsx
-- [ ] T012 [US1] Verify useUrlPersistence tests fail (red phase validation)
+- [x] T011 [P] [US1] Create useUrlPersistence hook tests in src/hooks/useUrlPersistence.test.tsx
+- [x] T012 [US1] Verify useUrlPersistence tests fail (red phase validation)
 
 ### Implementation for User Story 1 (TDD - Green Phase)
 
-- [ ] T013 [US1] Implement debounce utility function in src/hooks/useUrlPersistence.ts
-- [ ] T014 [US1] Implement useUrlPersistence hook with URL encoding in src/hooks/useUrlPersistence.ts
-- [ ] T015 [US1] Implement setMarkdown function with debounced URL sync in src/hooks/useUrlPersistence.ts
-- [ ] T016 [US1] Implement syncToUrl function for manual sync in src/hooks/useUrlPersistence.ts
-- [ ] T017 [US1] Add URL length warning logic in src/hooks/useUrlPersistence.ts
-- [ ] T018 [US1] Verify useUrlPersistence tests pass with 100% coverage
+- [x] T013 [US1] Implement debounce utility function in src/utils/debounce.ts
+- [x] T014 [US1] Implement useUrlPersistence hook with URL encoding in src/hooks/useUrlPersistence.ts
+- [x] T015 [US1] Implement setMarkdown function with debounced URL sync in src/hooks/useUrlPersistence.ts
+- [x] T016 [US1] Implement syncToUrl function for manual sync in src/hooks/useUrlPersistence.ts
+- [x] T017 [US1] Add URL length warning logic in src/hooks/useUrlPersistence.ts
+- [x] T018 [US1] Verify useUrlPersistence tests pass with 100% coverage
 
 ### Integration for User Story 1
 
-- [ ] T019 [US1] Create barrel export in src/hooks/index.ts
-- [ ] T020 [US1] Integrate useUrlPersistence hook into App component in src/components/App/App.tsx
-- [ ] T021 [US1] Update App component tests in src/components/App/App.test.tsx
+- [x] T019 [US1] Create barrel export in src/hooks/index.ts
+- [x] T020 [US1] Integrate useUrlPersistence hook into App component in src/components/App/App.tsx
+- [x] T021 [US1] Update App component tests in src/components/App/App.test.tsx
 
 **Checkpoint**: At this point, User Story 1 should be fully functional - users can save markdown to URL and share it
 
@@ -108,15 +108,15 @@ description: 'Task list for querystring persistence feature implementation'
 
 ### Tests for User Story 2 (Already covered in T011)
 
-- [ ] T022 [US2] Verify URL loading tests exist in src/hooks/useUrlPersistence.test.tsx
-- [ ] T023 [US2] Verify corrupt URL handling tests exist in src/hooks/useUrlPersistence.test.tsx
-- [ ] T024 [US2] Verify empty URL handling tests exist in src/hooks/useUrlPersistence.test.tsx
+- [x] T022 [US2] Verify URL loading tests exist in src/hooks/useUrlPersistence.test.tsx
+- [x] T023 [US2] Verify corrupt URL handling tests exist in src/hooks/useUrlPersistence.test.tsx
+- [x] T024 [US2] Verify empty URL handling tests exist in src/hooks/useUrlPersistence.test.tsx
 
 ### Implementation for User Story 2 (Already in useUrlPersistence hook)
 
-- [ ] T025 [US2] Verify initial URL load logic in useUrlPersistence hook (useEffect on mount)
-- [ ] T026 [US2] Verify loadedFromUrl flag is set correctly in src/hooks/useUrlPersistence.ts
-- [ ] T027 [US2] Verify fallback to DEFAULT_MARKDOWN on corrupt/empty URL in src/hooks/useUrlPersistence.ts
+- [x] T025 [US2] Verify initial URL load logic in useUrlPersistence hook (useEffect on mount)
+- [x] T026 [US2] Verify loadedFromUrl flag is set correctly in src/hooks/useUrlPersistence.ts
+- [x] T027 [US2] Verify fallback to DEFAULT_MARKDOWN on corrupt/empty URL in src/hooks/useUrlPersistence.ts
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work - complete save/load cycle functional
 
@@ -132,15 +132,15 @@ description: 'Task list for querystring persistence feature implementation'
 
 ### Tests for User Story 3 (Already covered in T011)
 
-- [ ] T028 [US3] Verify debounce timing tests exist in src/hooks/useUrlPersistence.test.tsx
-- [ ] T029 [US3] Verify replaceState (not pushState) tests exist in src/hooks/useUrlPersistence.test.tsx
-- [ ] T030 [US3] Verify manual URL edit ignore tests exist in src/hooks/useUrlPersistence.test.tsx
+- [x] T028 [US3] Verify debounce timing tests exist in src/utils/debounce.test.ts
+- [x] T029 [US3] Verify replaceState (not pushState) tests exist in src/hooks/useUrlPersistence.test.tsx
+- [x] T030 [US3] Verify manual URL edit ignore tests exist in src/hooks/useUrlPersistence.test.tsx
 
 ### Implementation for User Story 3 (Already in useUrlPersistence hook)
 
-- [ ] T031 [US3] Verify 500ms debounce implementation in src/hooks/useUrlPersistence.ts
-- [ ] T032 [US3] Verify history.replaceState usage (not pushState) in src/hooks/useUrlPersistence.ts
-- [ ] T033 [US3] Verify URL only loaded on initial mount (manual edits ignored) in src/hooks/useUrlPersistence.ts
+- [x] T031 [US3] Verify 500ms debounce implementation in src/hooks/useUrlPersistence.ts
+- [x] T032 [US3] Verify history.replaceState usage (not pushState) in src/hooks/useUrlPersistence.ts
+- [x] T033 [US3] Verify URL only loaded on initial mount (manual edits ignored) in src/hooks/useUrlPersistence.ts
 
 **Checkpoint**: All user stories should now be independently functional - complete realtime URL persistence working
 
@@ -150,13 +150,13 @@ description: 'Task list for querystring persistence feature implementation'
 
 **Purpose**: Final validation and quality checks across all user stories
 
-- [ ] T034 [P] Run full test suite with coverage: npm run test:ci
-- [ ] T035 [P] Verify 100% test coverage for all new code (excluding barrel exports)
-- [ ] T036 [P] Run ESLint: npm run lint
-- [ ] T037 [P] Run TypeScript type check: npm run lint:tsc
-- [ ] T038 Build production bundle: npm run build
-- [ ] T039 Manual testing per quickstart.md validation scenarios
-- [ ] T040 Verify all acceptance scenarios from spec.md
+- [x] T034 [P] Run full test suite with coverage: npm run test:ci
+- [x] T035 [P] Verify 100% test coverage for all new code (excluding barrel exports)
+- [x] T036 [P] Run ESLint: npm run lint
+- [x] T037 [P] Run TypeScript type check: npm run lint:tsc
+- [x] T038 Build production bundle: npm run build
+- [x] T039 Manual testing per quickstart.md validation scenarios
+- [x] T040 Verify all acceptance scenarios from spec.md
 
 ---
 

@@ -2,7 +2,7 @@
 
 **Feature Branch**: `002-querystring-persistence`
 **Created**: 2026-03-10
-**Status**: Ready
+**Status**: Done
 **Input**: User description: "save/load markdown in querystring"
 
 ## Clarifications
