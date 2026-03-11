@@ -16,26 +16,22 @@ export function useUrlPersistence(
   initialMarkdown?: string,
 ): UseUrlPersistenceReturn {
   const [markdown, setMarkdownState] = useState<string>('');
-  const [loadedFromUrl, setLoadedFromUrl] = useState<boolean>(false);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const encoded = params.get(URL_PARAM_KEY);
 
     let initialContent = initialMarkdown ?? DEFAULT_MARKDOWN;
-    let wasLoadedFromUrl = false;
 
     if (encoded) {
       const result = decodeMarkdown(encoded);
       if (result.success) {
         initialContent = result.decoded;
-        wasLoadedFromUrl = true;
       }
     }
 
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setMarkdownState(initialContent);
-    setLoadedFromUrl(wasLoadedFromUrl);
   }, [initialMarkdown]);
 
   const debouncedSync = useMemo(
@@ -67,14 +63,8 @@ export function useUrlPersistence(
     [debouncedSync],
   );
 
-  const syncToUrl = useCallback(() => {
-    debouncedSync.flush();
-  }, [debouncedSync]);
-
   return {
     markdown,
     setMarkdown,
-    loadedFromUrl,
-    syncToUrl,
   };
 }

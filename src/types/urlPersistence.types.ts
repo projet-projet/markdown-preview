@@ -1,8 +1,6 @@
 export interface UseUrlPersistenceReturn {
   markdown: string;
   setMarkdown: (value: string) => void;
-  loadedFromUrl: boolean;
-  syncToUrl: () => void;
 }
 
 export interface EncodeResult {

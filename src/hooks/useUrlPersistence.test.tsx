@@ -26,7 +26,6 @@ describe('useUrlPersistence', () => {
     const { result } = renderHook(() => useUrlPersistence());
 
     expect(result.current.markdown).toContain('Heading');
-    expect(result.current.loadedFromUrl).toBe(false);
   });
 
   it('should load markdown from URL parameter on mount', () => {
@@ -35,7 +34,7 @@ describe('useUrlPersistence', () => {
 
     const { result } = renderHook(() => useUrlPersistence());
 
-    expect(result.current.loadedFromUrl).toBe(true);
+    expect(result.current.markdown).toBe('hello');
   });
 
   it('should update URL when markdown changes', () => {
@@ -44,18 +43,6 @@ describe('useUrlPersistence', () => {
 
     act(() => {
       result.current.setMarkdown('# New Content');
-    });
-
-    expect(replaceStateSpy).toHaveBeenCalled();
-  });
-
-  it('should sync immediately when syncToUrl is called', () => {
-    const { result } = renderHook(() => useUrlPersistence());
-    const replaceStateSpy = vi.spyOn(window.history, 'replaceState');
-
-    act(() => {
-      result.current.setMarkdown('# Immediate');
-      result.current.syncToUrl();
     });
 
     expect(replaceStateSpy).toHaveBeenCalled();
@@ -100,7 +87,6 @@ describe('useUrlPersistence', () => {
     const { result } = renderHook(() => useUrlPersistence());
 
     expect(result.current.markdown).toContain('Heading');
-    expect(result.current.loadedFromUrl).toBe(false);
   });
 
   it('should update markdown state immediately', () => {
@@ -117,7 +103,6 @@ describe('useUrlPersistence', () => {
     const { result } = renderHook(() => useUrlPersistence('# Custom Initial'));
 
     expect(result.current.markdown).toBe('# Custom Initial');
-    expect(result.current.loadedFromUrl).toBe(false);
   });
 
   it('should prioritize URL parameter over initial markdown', () => {
@@ -126,6 +111,6 @@ describe('useUrlPersistence', () => {
 
     const { result } = renderHook(() => useUrlPersistence('# Custom Initial'));
 
-    expect(result.current.loadedFromUrl).toBe(true);
+    expect(result.current.markdown).toBe('hello');
   });
 });
