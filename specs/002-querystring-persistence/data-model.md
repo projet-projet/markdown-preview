@@ -82,12 +82,6 @@ export interface UseUrlPersistenceReturn {
 
   /** Update markdown content (triggers URL sync) */
   setMarkdown: (value: string) => void;
-
-  /** Whether content was loaded from URL */
-  loadedFromUrl: boolean;
-
-  /** Manually trigger URL sync (bypasses debounce) */
-  syncToUrl: () => void;
 }
 
 /**
@@ -113,7 +107,6 @@ export interface UrlLengthCheck {
    b. If successful: Set as editor content
    c. If failed: Use DEFAULT_MARKDOWN
 5. If absent: Use DEFAULT_MARKDOWN
-6. Set loadedFromUrl flag
 
 ### User Editing Flow
 
@@ -170,7 +163,6 @@ export interface UrlLengthCheck {
 The `useUrlPersistence` hook manages:
 
 - **`markdown: string`** - Current markdown content (updates immediately)
-- **`loadedFromUrl: boolean`** - Set once on mount, indicates if content came from URL
 
 Implementation details are in `quickstart.md`.
 
@@ -187,7 +179,6 @@ Implementation details are in `quickstart.md`.
 - **Delay**: 500ms (balances responsiveness and performance)
 - **Type**: Trailing edge (update after user stops typing)
 - **Cancellation**: Previous timer cancelled on new input
-- **Flush**: Manual sync available via `syncToUrl()` method
 
 ### Memory Usage
 
@@ -231,8 +222,6 @@ Implementation details are in `quickstart.md`.
 
 - ✅ useUrlPersistence hook initialization
 - ✅ Debounced sync behavior
-- ✅ loadedFromUrl flag correctness
-- ✅ Manual sync via syncToUrl()
 
 ## Dependencies
 

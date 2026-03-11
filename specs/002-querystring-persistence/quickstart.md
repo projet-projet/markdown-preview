@@ -48,8 +48,6 @@ npm list lz-string
 export interface UseUrlPersistenceReturn {
   markdown: string;
   setMarkdown: (value: string) => void;
-  loadedFromUrl: boolean;
-  syncToUrl: () => void;
 }
 
 export type EncodeResult =
@@ -337,7 +335,6 @@ describe('useUrlPersistence', () => {
     const { result } = renderHook(() => useUrlPersistence());
 
     expect(result.current.markdown).toContain('Welcome to Markdown Preview');
-    expect(result.current.loadedFromUrl).toBe(false);
   });
 
   it('should load markdown from URL parameter on mount', () => {
@@ -347,7 +344,7 @@ describe('useUrlPersistence', () => {
 
     const { result } = renderHook(() => useUrlPersistence());
 
-    expect(result.current.loadedFromUrl).toBe(true);
+    expect(result.current.markdown).toBe('hello');
   });
 
   it('should update URL when markdown changes (debounced)', async () => {
@@ -368,18 +365,6 @@ describe('useUrlPersistence', () => {
       },
       { timeout: 1000 },
     );
-  });
-
-  it('should sync immediately when syncToUrl is called', () => {
-    const { result } = renderHook(() => useUrlPersistence());
-    const replaceStateSpy = vi.spyOn(window.history, 'replaceState');
-
-    act(() => {
-      result.current.setMarkdown('# Immediate');
-      result.current.syncToUrl();
-    });
-
-    expect(replaceStateSpy).toHaveBeenCalled();
   });
 
   it('should use replaceState not pushState', async () => {
@@ -488,7 +473,6 @@ export function useUrlPersistence(
   initialMarkdown?: string,
 ): UseUrlPersistenceReturn {
   const [markdown, setMarkdownState] = useState<string>('');
-  const [loadedFromUrl, setLoadedFromUrl] = useState<boolean>(false);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -498,7 +482,6 @@ export function useUrlPersistence(
       const result = decodeMarkdown(encoded);
       if (result.success) {
         setMarkdownState(result.decoded);
-        setLoadedFromUrl(true);
         return;
       }
     }
@@ -535,15 +518,9 @@ export function useUrlPersistence(
     [debouncedSync],
   );
 
-  const syncToUrl = useCallback(() => {
-    debouncedSync.flush();
-  }, [debouncedSync]);
-
   return {
     markdown,
     setMarkdown,
-    loadedFromUrl,
-    syncToUrl,
   };
 }
 ```
@@ -580,7 +557,7 @@ Find where markdown state is currently managed and replace with:
 import { useUrlPersistence } from 'src/hooks';
 
 export function App() {
-  const { markdown, setMarkdown, loadedFromUrl } = useUrlPersistence();
+  const { markdown, setMarkdown } = useUrlPersistence();
 
   // Rest of component...
 }

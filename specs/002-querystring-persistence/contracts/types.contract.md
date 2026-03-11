@@ -23,24 +23,13 @@ export interface UseUrlPersistenceReturn {
 
   /** Update markdown content (triggers debounced URL sync) */
   setMarkdown: (value: string) => void;
-
-  /** Whether content was loaded from URL on initial mount */
-  loadedFromUrl: boolean;
-
-  /** Manually trigger URL sync (bypasses debounce) */
-  syncToUrl: () => void;
 }
 ```
 
 **Usage**:
 
 ```typescript
-const {
-  markdown,
-  setMarkdown,
-  loadedFromUrl,
-  syncToUrl,
-}: UseUrlPersistenceReturn = useUrlPersistence();
+const { markdown, setMarkdown }: UseUrlPersistenceReturn = useUrlPersistence();
 ```
 
 ---
@@ -214,13 +203,9 @@ function MarkdownEditor(): JSX.Element {
   const {
     markdown,
     setMarkdown,
-    loadedFromUrl,
-    syncToUrl,
   }: UseUrlPersistenceReturn = useUrlPersistence();
 
   const handleShare = (): void => {
-    syncToUrl();
-
     const result: EncodeResult = encodeMarkdown(markdown);
     if (result.success) {
       const check: UrlLengthCheck = checkUrlLength(result.encoded);
@@ -234,7 +219,6 @@ function MarkdownEditor(): JSX.Element {
 
   return (
     <div>
-      {loadedFromUrl && <p>Loaded from shared URL</p>}
       <textarea
         value={markdown}
         onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
@@ -294,8 +278,6 @@ type HookReturnTest = AssertEqual<
   {
     markdown: string;
     setMarkdown: (value: string) => void;
-    loadedFromUrl: boolean;
-    syncToUrl: () => void;
   }
 >;
 

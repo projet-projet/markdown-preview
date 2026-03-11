@@ -84,7 +84,7 @@ description: 'Task list for querystring persistence feature implementation'
 - [x] T013 [US1] Implement debounce utility function in src/utils/debounce.ts
 - [x] T014 [US1] Implement useUrlPersistence hook with URL encoding in src/hooks/useUrlPersistence.ts
 - [x] T015 [US1] Implement setMarkdown function with debounced URL sync in src/hooks/useUrlPersistence.ts
-- [x] T016 [US1] Implement syncToUrl function for manual sync in src/hooks/useUrlPersistence.ts
+- [x] T016 [US1] ~~Implement syncToUrl function for manual sync~~ (removed as unused)
 - [x] T017 [US1] Add URL length warning logic in src/hooks/useUrlPersistence.ts
 - [x] T018 [US1] Verify useUrlPersistence tests pass with 100% coverage
 
@@ -115,7 +115,7 @@ description: 'Task list for querystring persistence feature implementation'
 ### Implementation for User Story 2 (Already in useUrlPersistence hook)
 
 - [x] T025 [US2] Verify initial URL load logic in useUrlPersistence hook (useEffect on mount)
-- [x] T026 [US2] Verify loadedFromUrl flag is set correctly in src/hooks/useUrlPersistence.ts
+- [x] T026 [US2] ~~Verify loadedFromUrl flag is set correctly~~ (removed as unused)
 - [x] T027 [US2] Verify fallback to DEFAULT_MARKDOWN on corrupt/empty URL in src/hooks/useUrlPersistence.ts
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work - complete save/load cycle functional

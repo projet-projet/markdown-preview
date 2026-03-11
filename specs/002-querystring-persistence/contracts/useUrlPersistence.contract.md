@@ -34,12 +34,6 @@ interface UseUrlPersistenceReturn {
 
   /** Update markdown content (triggers debounced URL sync) */
   setMarkdown: (value: string) => void;
-
-  /** Whether content was loaded from URL on initial mount */
-  loadedFromUrl: boolean;
-
-  /** Manually trigger URL sync (bypasses debounce) */
-  syncToUrl: () => void;
 }
 ```
 
@@ -62,25 +56,6 @@ interface UseUrlPersistenceReturn {
   - Cancels previous pending URL update
 - **Performance**: Synchronous state update, async URL sync
 
-##### `loadedFromUrl`
-
-- **Type**: `boolean`
-- **Description**: Flag indicating whether content was loaded from URL on mount
-- **Values**:
-  - `true`: Content was successfully decoded from `?md=` parameter
-  - `false`: Used default/initial markdown (URL absent or corrupt)
-- **Stability**: Set once on mount, never changes during component lifecycle
-
-##### `syncToUrl`
-
-- **Type**: `() => void`
-- **Description**: Manually trigger URL sync, bypassing debounce delay
-- **Use Cases**:
-  - Before navigation (ensure URL is current)
-  - Before copying URL to clipboard
-  - In response to explicit "save" button click
-- **Behavior**: Flushes pending debounced update immediately
-
 ## Behavior Specification
 
 ### Initial Mount
@@ -89,9 +64,9 @@ interface UseUrlPersistenceReturn {
 2. Reads `?md=` parameter from `window.location.search`
 3. If parameter exists:
    - Attempts to decode using LZ-string
-   - On success: Sets as initial markdown, `loadedFromUrl = true`
-   - On failure: Uses `initialMarkdown` or `DEFAULT_MARKDOWN`, `loadedFromUrl = false`
-4. If parameter absent: Uses `initialMarkdown` or `DEFAULT_MARKDOWN`, `loadedFromUrl = false`
+   - On success: Sets as initial markdown
+   - On failure: Uses `initialMarkdown` or `DEFAULT_MARKDOWN`
+4. If parameter absent: Uses `initialMarkdown` or `DEFAULT_MARKDOWN`
 
 ### Content Updates
 
@@ -158,16 +133,13 @@ interface UseUrlPersistenceReturn {
 import { useUrlPersistence } from 'src/hooks/useUrlPersistence';
 
 function MarkdownEditor() {
-  const { markdown, setMarkdown, loadedFromUrl } = useUrlPersistence();
+  const { markdown, setMarkdown } = useUrlPersistence();
 
   return (
-    <div>
-      {loadedFromUrl && <p>Loaded from shared URL</p>}
-      <textarea
-        value={markdown}
-        onChange={(e) => setMarkdown(e.target.value)}
-      />
-    </div>
+    <textarea
+      value={markdown}
+      onChange={(e) => setMarkdown(e.target.value)}
+    />
   );
 }
 ```
@@ -189,15 +161,14 @@ function MarkdownEditor() {
 }
 ```
 
-### Manual Sync Before Navigation
+### With Share Functionality
 
 ```typescript
 function MarkdownEditor() {
-  const { markdown, setMarkdown, syncToUrl } = useUrlPersistence();
+  const { markdown, setMarkdown } = useUrlPersistence();
 
   const handleShare = () => {
-    // Ensure URL is current before copying
-    syncToUrl();
+    // URL is automatically kept in sync via debouncing
     navigator.clipboard.writeText(window.location.href);
   };
 
@@ -239,14 +210,6 @@ describe('useUrlPersistence', () => {
     // Test debounce cancellation
   });
 
-  it('should set loadedFromUrl flag correctly', () => {
-    // Test flag accuracy
-  });
-
-  it('should sync immediately when syncToUrl is called', () => {
-    // Test manual sync bypass
-  });
-
   it('should use replaceState not pushState', () => {
     // Test history API usage
   });
@@ -273,7 +236,7 @@ Changes that would break this contract:
 
 - ❌ Changing hook name
 - ❌ Changing return value shape
-- ❌ Removing `loadedFromUrl` or `syncToUrl`
+- ❌ Removing required return properties
 - ❌ Changing debounce delay without migration path
 - ❌ Changing URL parameter name from `md`
 
