@@ -40,7 +40,7 @@ export function decodeMarkdown(encoded: string): DecodeResult {
       success: false,
       error: error as Error,
     };
-    /* v8 ignore end */
+    /* v8 ignore stop */
   }
 }
 
